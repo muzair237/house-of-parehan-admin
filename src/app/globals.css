@@ -1,0 +1,238 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Ubuntu Font Faces */
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/fonts/Ubuntu/Ubuntu-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/fonts/Ubuntu/Ubuntu-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/fonts/Ubuntu/Ubuntu-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/fonts/Ubuntu/Ubuntu-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Theme Tokens */
+@theme inline {
+  --font-sans: Ubuntu, ui-sans-serif, system-ui;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 10px;
+
+  /* Fonts */
+  --font-ubuntu: 'Ubuntu', ui-sans-serif, system-ui;
+  --font-mono: 'Fira Code', monospace;
+
+  /* Base */
+  --background: #f8f9fa; /* near-white mist */
+  --foreground: #1c1f23; /* deep graphite */
+
+  --card: #ffffff;
+  --card-foreground: #1c1f23;
+
+  --toploader-color: #2b7a78; /* teal-greenish blue */
+
+  /* Primary (Teal Depth) */
+  --primary: #2b7a78;
+  --primary-foreground: #ffffff;
+
+  /* Secondary (Soft Mist Gray) */
+  --secondary: #e8eced;
+  --secondary-foreground: #1c1f23;
+
+  /* Accent (Balanced Steel Blue) */
+  --accent: #3a506b;
+  --accent-foreground: #ffffff;
+
+  /* Muted */
+  --muted: #eef1f3;
+  --muted-foreground: #5a6168;
+
+  /* Success / Warning / Error */
+  --success: #2d936c;
+  --success-foreground: #ffffff;
+
+  --warning: #d1a954;
+  --warning-foreground: #1c1f23;
+
+  --destructive: #c44536;
+  --destructive-foreground: #ffffff;
+
+  /* Info */
+  --info: #3a8fb7;
+  --info-foreground: #ffffff;
+
+  /* Borders */
+  --border: #d5dadd;
+  --input: #eef1f3;
+  --ring: #2b7a78;
+
+  /* Sidebar */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1c1f23;
+  --sidebar-primary: #2b7a78;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8eced;
+  --sidebar-accent-foreground: #1c1f23;
+  --sidebar-border: #d5dadd;
+  --sidebar-ring: #3a506b;
+
+  /* Charts */
+  --chart-1: #2b7a78;
+  --chart-2: #3a506b;
+  --chart-3: #d1a954;
+  --chart-4: #2d936c;
+  --chart-5: #5a6168;
+}
+
+.dark {
+  --background: #1c1f22; /* soft graphite */
+  --foreground: #f0f2f4; /* light mist */
+
+  --card: #25292d; /* balanced depth for cards */
+  --card-foreground: #f0f2f4;
+
+  --toploader-color: #4db6ac; /* calm teal */
+
+  --primary: #4db6ac; /* minty teal */
+  --primary-foreground: #0e1112;
+
+  --secondary: #2e3338; /* muted cool grey */
+  --secondary-foreground: #f0f2f4;
+
+  --accent: #5c6f82; /* dusky blue-grey */
+  --accent-foreground: #f0f2f4;
+
+  --muted: #3a3f44; /* soft shadow tone */
+  --muted-foreground: #b5bbc0; /* gentle contrast */
+
+  --success: #66cdaa; /* seafoam green */
+  --success-foreground: #0e1112;
+
+  --warning: #ffd479; /* pale amber */
+  --warning-foreground: #0e1112;
+
+  --destructive: #ef7b73; /* warm coral */
+  --destructive-foreground: #0e1112;
+
+  --info: #6db7e2; /* calm sky blue */
+  --info-foreground: #0e1112;
+
+  --border: #3a3f44;
+  --input: #2e3338;
+  --ring: #4db6ac;
+
+  --sidebar: #23272b; /* slightly lighter than bg for separation */
+  --sidebar-foreground: #f0f2f4;
+  --sidebar-primary: #4db6ac;
+  --sidebar-primary-foreground: #0e1112;
+  --sidebar-accent: #2e3338;
+  --sidebar-accent-foreground: #f0f2f4;
+  --sidebar-border: #3a3f44;
+  --sidebar-ring: #4db6ac;
+
+  --chart-1: #4db6ac;
+  --chart-2: #5c6f82;
+  --chart-3: #ffd479;
+  --chart-4: #66cdaa;
+  --chart-5: #b5bbc0;
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply font-sans bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.15s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

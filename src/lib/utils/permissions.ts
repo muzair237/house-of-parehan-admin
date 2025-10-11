@@ -1,0 +1,34 @@
+export enum Permissions {
+  CREATE_PERMISSION = 'permissions.create',
+  UPDATE_PERMISSION = 'permissions.update',
+  DELETE_PERMISSION = 'permissions.delete',
+
+  CREATE_ROLE = 'roles.create',
+  UPDATE_ROLE = 'roles.update',
+  DELETE_ROLE = 'roles.delete',
+
+  CREATE_USER = 'users.create',
+  UPDATE_USER_PASSWORD = 'users.update-password',
+  FORCE_LOGOUT_USER = 'users.force-logout',
+  UPDATE_USER = 'users.update',
+  DELETE_USER = 'users.delete',
+
+  CREATE_TRANSACTION = 'transactions.create',
+
+  CREATE_REMINDER = 'reminders.create',
+  UPDATE_REMINDER = 'reminders.update',
+  DELETE_REMINDER = 'reminders.delete',
+
+  VIEW_ACTIVE_ALERTS = 'dashboard.view-active-alerts',
+  VIEW_CARD_ANALYTICS = 'dashboard.view-card-analytics',
+  VIEW_CARD_USER_ANALYTICS = 'dashboard.view-card-user-analytics',
+  VIEW_CARD_CUSTOMER_ANALYTICS = 'dashboard.view-card-customer-analytics',
+  VIEW_CARD_INSTALLMENT_ANALYTICS = 'dashboard.view-card-installment-analytics',
+  VIEW_CARD_SHOPKEEPER_ANALYTICS = 'dashboard.view-card-shopkeeper-analytics',
+  VIEW_RECENTLY_JOINED_SHOPKEEPERS = 'dashboard.view-recently-joined-shopkeepers',
+  VIEW_TOP_SHOPKEEPERS = 'dashboard.view-top-shopkeepers',
+  VIEW_TOP_SHOPKEEPERS_BY_REVENUE = 'dashboard.view-revenue-by-shopkeepers',
+  VIEW_REVENUE_SUMMARY = 'dashboard.view-revenue-summary',
+  VIEW_INSTALLMENTS_DUE_TODAY = 'dashboard.view-installments-due-today',
+  VIEW_REMINDERS_DUE_TODAY = 'dashboard.view-reminders-due-today',
+}
