@@ -8,6 +8,7 @@ import ReminderReducer from './reminder/reducer';
 import RoleReducer from './role/reducer';
 import TransactionReducer from './transaction/reducer';
 import UserReducer from './user/reducer';
+import ProductReducer from './product/reducer';
 
 const rootReducer = combineReducers({
   Auth: AuthReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   Transaction: TransactionReducer,
   Reminder: ReminderReducer,
   Dashboard: DashboardReducer,
+  Product: ProductReducer,
 });
 
 export default rootReducer;

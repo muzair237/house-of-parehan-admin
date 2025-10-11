@@ -1,6 +1,7 @@
 import dashboardThunk from '@/slices/dashboard/thunk';
 import enquiryThunk from '@/slices/enquiry/thunk';
 import permissionThunk from '@/slices/permission/thunk';
+import productThunk from '@/slices/product/thunk';
 import reminderThunk from '@/slices/reminder/thunk';
 import roleThunk from '@/slices/role/thunk';
 import transactionThunk from '@/slices/transaction/thunk';
@@ -12,6 +13,7 @@ export const tableThunks: Record<string, any> = {
   permission: permissionThunk.fetchAllPermissions,
   role: roleThunk.fetchAllRoles,
   user: userThunk.fetchAllUsers,
+  product: productThunk.fetchAllProducts,
   transaction: transactionThunk.fetchAllTransactions,
   reminder: reminderThunk.fetchAllReminders,
   reminderDueToday: dashboardThunk.fetchReminersDueToday,

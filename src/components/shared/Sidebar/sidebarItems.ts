@@ -16,6 +16,11 @@ export const sidebarItems: SidebarItem[] = [
     ],
   },
   {
+    label: 'Products',
+    icon: 'Box',
+    href: '/products',
+  },
+  {
     label: 'Transactions',
     icon: 'CircleDollarSign',
     href: '/transactions',

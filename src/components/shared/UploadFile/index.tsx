@@ -142,7 +142,7 @@ const UploadFile = ({
     >
       <Dropzone
         disabled={selectedFiles.length >= maxFiles}
-        // maxFiles={maxFiles}
+        maxFiles={maxFiles}
         accept={accept}
         multiple={multiple}
         onDrop={handleChange}

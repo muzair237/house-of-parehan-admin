@@ -15,6 +15,10 @@ export enum Permissions {
 
   CREATE_TRANSACTION = 'transactions.create',
 
+  CREATE_PRODUCT = 'products.create',
+  UPDATE_PRODUCT = 'products.update',
+  MARK_PRODUCT_AS_FEATURED = 'products.mark-product-as-featured',
+
   CREATE_REMINDER = 'reminders.create',
   UPDATE_REMINDER = 'reminders.update',
   DELETE_REMINDER = 'reminders.delete',

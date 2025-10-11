@@ -19,6 +19,8 @@ import PermissionForm from '../../permissions/_components/PermissionForm';
 import RoleForm from '../../roles/_components/roleForm';
 import TransactionForm from '../../transactions/_components/TransactionForm';
 import UserForm from '../../users/_components/userForm';
+import ProductForm from '../../products/_components/ProductForm';
+import productThunk from '@/slices/product/thunk';
 
 type Props = {
   entity: string;
@@ -61,6 +63,13 @@ const entityMap: Record<
     FormComponent: UserForm,
     thunk: userThunk.createUser,
     permission: Permissions.CREATE_USER,
+  },
+  product: {
+    title: 'Create Product',
+    FormComponent: ProductForm,
+    thunk: productThunk.createProduct,
+    permission: Permissions.CREATE_PRODUCT,
+    modalSize: 'md'
   },
   transaction: {
     title: 'Create Transaction',

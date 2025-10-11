@@ -196,13 +196,13 @@ export const convertToFormData = <T extends Record<string, any>>(data: T): FormD
       const fullKey = parentKey ? `${parentKey}[${key}]` : key;
 
       if (Array.isArray(value)) {
-        value.forEach((item, index) => {
+        value.forEach((item) => {
           if (item instanceof File) {
-            formData.append(`${fullKey}[${index}]`, item);
+            formData.append(fullKey, item); // files keep the plain name
           } else if (typeof item === 'object' && item !== null) {
-            appendData(item, `${fullKey}[${index}]`);
+            appendData(item, `${fullKey}`); // nested objects
           } else {
-            formData.append(`${fullKey}[${index}]`, String(item));
+            formData.append(`${fullKey}[]`, String(item)); // string/number arrays
           }
         });
       } else if (value instanceof File) {

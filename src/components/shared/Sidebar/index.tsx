@@ -99,8 +99,6 @@ const Sidebar: React.FC<SidebarProps> = ({ items, className }) => {
     [items, allowedPages]
   );
 
-  console.log('Sidebar is rendered!');
-
   return (
     <>
       <aside

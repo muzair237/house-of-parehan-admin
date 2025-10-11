@@ -5,6 +5,7 @@ const USER = 'user';
 const ENQUIRY = 'enquiry';
 const TRANSACTION = 'transaction';
 const REMINDER = 'reminder';
+const PRODUCT = 'product';
 
 export const GET_ALL_ENQUIRUES = `/${ENQUIRY}/get-all-enquiries`;
 export const DELETE_ENQUIRY = `/${ENQUIRY}/delete-enquiry`;
@@ -31,6 +32,11 @@ export const DELETE_USER = `/${USER}/delete-user`;
 
 export const GET_ALL_TRANSACTIONS = `/${TRANSACTION}/get-all-transactions`;
 export const CREATE_TRANSACTION = `/${TRANSACTION}/create-transaction`;
+
+export const GET_ALL_PRODUCTS = `/${PRODUCT}/get-all-products`;
+export const CREATE_PRODUCT = `/${PRODUCT}/create-product`;
+export const UPDATE_PRODUCT = `/${PRODUCT}/update-product`;
+export const DELETE_PRODUCT = `/${PRODUCT}/delete-product`;
 
 export const GET_ALL_REMINDERS = `/${REMINDER}/get-all-reminders`;
 export const CREATE_REMINDER = `/${REMINDER}/create-reminder`;
