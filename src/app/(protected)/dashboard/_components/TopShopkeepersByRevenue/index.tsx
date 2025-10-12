@@ -11,6 +11,8 @@ import Skeleton from '@/components/shared/Skeleton';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 const TopRevenueChart = () => {
   const dispatch = useAppDispatch();
   const { revenueByShopkeepers, revenueByShopkeepersLoading } = useAppSelector(

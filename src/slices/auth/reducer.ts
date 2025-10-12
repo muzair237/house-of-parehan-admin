@@ -1,4 +1,4 @@
-import { AuthState, UserData } from '@/domains/auth/types';
+import { AdminData, AuthState } from '@/domains/auth/types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { setCookie } from '@/lib/utils/helper';
@@ -6,7 +6,7 @@ import { setCookie } from '@/lib/utils/helper';
 import authThunk from './thunk';
 
 const initialState: AuthState = {
-  user: null,
+  admin: null,
   permissions: [],
   isLoggedIn: false,
   allowedPages: [],
@@ -33,14 +33,14 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
 
-      .addCase(authThunk.me.fulfilled, (state: AuthState, action: PayloadAction<UserData>) => {
+      .addCase(authThunk.me.fulfilled, (state: AuthState, action: PayloadAction<AdminData>) => {
         const allowedPages = action.payload.permissions
           .filter((p) => p.includes('.nav'))
           .map((p) => `/${p.split('.')[0]}`);
 
         setCookie(process.env.NEXT_PUBLIC_ALLOWED_PAGES_COOKIE!, JSON.stringify(allowedPages));
 
-        state.user = action.payload;
+        state.admin = action.payload;
         state.permissions = action.payload.permissions;
         state.isLoggedIn = true;
         state.allowedPages = allowedPages;
@@ -49,7 +49,7 @@ const authSlice = createSlice({
 
       .addCase(authThunk.me.rejected, (state) => {
         state.isLoggedIn = false;
-        state.user = null;
+        state.admin = null;
         state.permissions = [];
         state.allowedPages = [];
         state.isLoading = false;
@@ -61,7 +61,7 @@ const authSlice = createSlice({
       })
 
       .addCase(authThunk.logout.fulfilled, (state) => {
-        state.user = null;
+        state.admin = null;
         state.isLoggedIn = false;
         state.permissions = [];
         state.allowedPages = [];
@@ -70,7 +70,7 @@ const authSlice = createSlice({
       })
 
       .addCase(authThunk.logout.rejected, (state) => {
-        state.user = null;
+        state.admin = null;
         state.isLoggedIn = false;
         state.permissions = [];
         state.allowedPages = [];

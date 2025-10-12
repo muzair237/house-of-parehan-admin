@@ -12,7 +12,7 @@ export const sidebarItems: SidebarItem[] = [
     children: [
       { label: 'Permissions', icon: 'KeyRound', href: '/permissions' },
       { label: 'Roles', icon: 'Network', href: '/roles' },
-      { label: 'Users', icon: 'ShieldUser', href: '/users' },
+      { label: 'Admins', icon: 'ShieldUser', href: '/admins' },
     ],
   },
   {

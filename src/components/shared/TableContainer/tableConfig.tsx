@@ -1,12 +1,12 @@
 'use client';
 
+import AdminActionBtns from '@/app/(protected)/admins/_components/ActionBtns';
 import EnquiryActionBtns from '@/app/(protected)/enquiries/_components/ActionBtns';
 import PermissionActionBtns from '@/app/(protected)/permissions/_components/ActionBtns';
 import ProductActionBtns from '@/app/(protected)/products/_components/ActionBtns';
 import ReminderActionBtns from '@/app/(protected)/reminders/_components/ActionBtns';
 import RoleActionBtns from '@/app/(protected)/roles/_components/ActionBtns';
 import TransactionActionBtns from '@/app/(protected)/transactions/_components/ActionBtns';
-import UserActionBtns from '@/app/(protected)/users/_components/ActionBtns';
 import { Categories, ProductData } from '@/domains/product/types';
 import { ReminderStatus } from '@/domains/reminder/types';
 import { TransactionProduct, TransactionStatus } from '@/domains/transaction/types';
@@ -110,8 +110,8 @@ export const tableConfigs: Record<string, TableConfig> = {
     actionBtns: RoleActionBtns,
   },
 
-  users: {
-    name: 'user',
+  admins: {
+    name: 'admin',
     defaultSort: { key: 'createdAt', direction: 'desc' },
     pageSize: 10,
     columns: [
@@ -152,7 +152,7 @@ export const tableConfigs: Record<string, TableConfig> = {
       },
     ],
     createEntityButton: true,
-    actionBtns: UserActionBtns,
+    actionBtns: AdminActionBtns,
   },
 
   products: {

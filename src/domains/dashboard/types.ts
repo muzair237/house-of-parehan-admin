@@ -25,7 +25,7 @@ export type StatGroup = {
 };
 
 export type AnalyticCardResponseType = {
-  users: StatGroup;
+  admins: StatGroup;
   customers: StatGroup;
   installments: StatGroup;
   shopkeepers: StatGroup;

@@ -24,22 +24,6 @@ import { tableDataSelectors, tableLoadingSelectors } from './tableSelector';
 import { tableThunks } from './tableThunks';
 import { SortDirection } from './types';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 type DateRangeString = { startDate?: string; endDate?: string };
 type FilterValue = string | boolean | DateRangeString | undefined;
 

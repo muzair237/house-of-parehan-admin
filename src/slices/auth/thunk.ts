@@ -1,4 +1,4 @@
-import { LoginPayload, UserData } from '@/domains/auth/types';
+import { AdminData, LoginPayload } from '@/domains/auth/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import Toast from '@/components/shared/Toast';
@@ -13,7 +13,7 @@ interface LogoutPayload {
 }
 
 const login = createAsyncThunk(
-  'auth/loginUser',
+  'auth/loginAdmin',
   async ({
     payload,
     navigate,
@@ -41,14 +41,14 @@ const login = createAsyncThunk(
   }
 );
 
-const me = createAsyncThunk<UserData>('auth/me', async () => {
+const me = createAsyncThunk<AdminData>('auth/me', async () => {
   return wrapAsync(async () => {
-    const res = await HttpClient.get<{ data: UserData; message?: string }>('/auth/me');
+    const res = await HttpClient.get<{ data: AdminData; message?: string }>('/auth/me');
     return res.data;
   });
 });
 
-const logout = createAsyncThunk<void, LogoutPayload>('logout/logoutUser', async ({ navigate }) => {
+const logout = createAsyncThunk<void, LogoutPayload>('logout/logoutAdmin', async ({ navigate }) => {
   try {
     await HttpClient.get('/auth/logout');
   } finally {

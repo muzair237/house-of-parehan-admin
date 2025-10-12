@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { PasswordFormValues } from '@/domains/user/types';
+import { PasswordFormValues } from '@/domains/admin/types';
 
 import Button from '@/components/shared/Button';
 import { Field, Form } from '@/components/shared/Form';

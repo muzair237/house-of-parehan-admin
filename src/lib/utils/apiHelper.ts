@@ -1,7 +1,7 @@
 const DASHBOARD = 'dashboard';
 const PERMISSION = 'permission';
 const ROLE = 'role';
-const USER = 'user';
+const ADMIN = 'admin';
 const ENQUIRY = 'enquiry';
 const TRANSACTION = 'transaction';
 const REMINDER = 'reminder';
@@ -23,12 +23,12 @@ export const CREATE_ROLE = `/${ROLE}/create-role`;
 export const UPDATE_ROLE = `/${ROLE}/update-role`;
 export const DELETE_ROLE = `/${ROLE}/delete-role`;
 
-export const GET_ALL_USERS = `/${USER}/get-all-users`;
-export const CREATE_USER = `/${USER}/create-user`;
-export const UPDATE_USER = `/${USER}/update-user`;
-export const UPDATE_PASSWORD = `/${USER}/update-password`;
-export const FORCE_LOGOUT = `/${USER}/force-logout`;
-export const DELETE_USER = `/${USER}/delete-user`;
+export const GET_ALL_ADMINS = `/${ADMIN}/get-all-admins`;
+export const CREATE_ADMIN = `/${ADMIN}/create-admin`;
+export const UPDATE_ADMIN = `/${ADMIN}/update-admin`;
+export const UPDATE_PASSWORD = `/${ADMIN}/update-password`;
+export const FORCE_LOGOUT = `/${ADMIN}/force-logout`;
+export const DELETE_ADMIN = `/${ADMIN}/delete-admin`;
 
 export const GET_ALL_TRANSACTIONS = `/${TRANSACTION}/get-all-transactions`;
 export const CREATE_TRANSACTION = `/${TRANSACTION}/create-transaction`;

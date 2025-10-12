@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 
-import { PasswordFormValues, UserData, UserPayload } from '@/domains/user/types';
+import { AdminData, AdminPayload, PasswordFormValues } from '@/domains/admin/types';
+import adminThunk from '@/slices/admin/thunk';
 import { useAppDispatch } from '@/slices/hooks';
-import userThunk from '@/slices/user/thunk';
 
 import Button from '@/components/shared/Button';
 import AppIcon from '@/components/shared/Icon';
@@ -17,19 +17,19 @@ import { Permissions } from '@/lib/utils/permissions';
 import { Option } from '@/lib/utils/types';
 
 import PasswordForm from '../PasswordForm';
-import UserForm from '../userForm';
+import AdminForm from '../adminForm';
 
-interface UserActionBtnsProps {
-  row: UserData;
+interface AdminActionBtnsProps {
+  row: AdminData;
   refetch: () => Promise<void>;
 }
 
-const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
+const AdminActionBtns: React.FC<AdminActionBtnsProps> = ({ row, refetch }) => {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleUpdate = async (
-    values: Partial<UserPayload> | PasswordFormValues,
+    values: Partial<AdminPayload> | PasswordFormValues,
     close: () => void
   ) => {
     setIsLoading(true);
@@ -51,7 +51,7 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
         };
       }
 
-      const { success } = await handleApiCall(dispatch, userThunk.updateUser, {
+      const { success } = await handleApiCall(dispatch, adminThunk.updateAdmin, {
         id: row._id,
         payload,
       });
@@ -70,7 +70,7 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
   const handleDelete = async (close: () => void) => {
     setIsLoading(true);
     try {
-      const { success } = await handleApiCall(dispatch, userThunk.deleteUser, row._id);
+      const { success } = await handleApiCall(dispatch, adminThunk.deleteAdmin, row._id);
       if (success) {
         close();
         refetch();
@@ -85,7 +85,7 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
   const handleForceLogout = async (close: () => void) => {
     setIsLoading(true);
     try {
-      const { success } = await handleApiCall(dispatch, userThunk.forceLogout, row._id);
+      const { success } = await handleApiCall(dispatch, adminThunk.forceLogout, row._id);
       if (success) {
         close();
         refetch();
@@ -116,7 +116,7 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
   return (
     <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
       <ModalContainer
-        title="User Record Information"
+        title="Admin Record Information"
         content={() => <RecordInfo data={preparedData} />}
       >
         {(open) => (
@@ -128,7 +128,7 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
         )}
       </ModalContainer>
 
-      {hasPermission(Permissions.UPDATE_USER_PASSWORD) && (
+      {hasPermission(Permissions.UPDATE_ADMIN_PASSWORD) && (
         <ModalContainer
           title="Update Password"
           closeButton={false}
@@ -150,10 +150,10 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
         </ModalContainer>
       )}
 
-      {hasPermission(Permissions.FORCE_LOGOUT_USER) && (
+      {hasPermission(Permissions.FORCE_LOGOUT_ADMIN) && (
         <ModalContainer
-          title="Force Logout User"
-          description="Are you absolutely sure you want to Force Logout this user? This action cannot be undone."
+          title="Force Logout Admin"
+          description="Are you absolutely sure you want to Force Logout this admin? This action cannot be undone."
           submitButton={{
             label: 'Force Logout',
             variant: 'destructive',
@@ -177,13 +177,13 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
         </ModalContainer>
       )}
 
-      {hasPermission(Permissions.UPDATE_USER) && (
+      {hasPermission(Permissions.UPDATE_ADMIN) && (
         <ModalContainer
-          title="Update User"
+          title="Update Admin"
           closeButton={false}
           closeOnOutsideClick={false}
           content={(close) => (
-            <UserForm
+            <AdminForm
               row={row}
               isLoading={isLoading}
               onSubmit={(values) => handleUpdate(values, close)}
@@ -200,10 +200,10 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
         </ModalContainer>
       )}
 
-      {hasPermission(Permissions.DELETE_USER) && (
+      {hasPermission(Permissions.DELETE_ADMIN) && (
         <ModalContainer
-          title="Delete User"
-          description="Are you absolutely sure you want to delete this user? This action cannot be undone."
+          title="Delete Admin"
+          description="Are you absolutely sure you want to delete this admin? This action cannot be undone."
           submitButton={{
             label: 'Delete',
             variant: 'destructive',
@@ -230,4 +230,4 @@ const UserActionBtns: React.FC<UserActionBtnsProps> = ({ row, refetch }) => {
   );
 };
 
-export default UserActionBtns;
+export default AdminActionBtns;

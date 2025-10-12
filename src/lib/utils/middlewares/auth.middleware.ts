@@ -8,7 +8,7 @@ const authMiddleware: Middleware = (store) => (next) => (action: any) => {
     ['401 Unauthorized', 'jwt expired', 'Session Expired. Kindly Login Again!'].includes(
       action.error?.message
     ) &&
-    action.type !== 'auth/loginUser/rejected'
+    action.type !== 'auth/loginAdmin/rejected'
   ) {
     store.dispatch(setSessionExpiredModalState());
   }

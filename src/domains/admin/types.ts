@@ -1,22 +1,22 @@
 import { BaseFields } from '@/lib/utils/types';
 
-export type UserData = {
+export type AdminData = {
   fullName: string;
   mobile: string;
   roles: { type: string }[] | string[];
   accountExpiryDate?: Date;
 } & BaseFields;
 
-export type UserPayload = UserData;
+export type AdminPayload = AdminData;
 
-export type UsersWithCount = {
-  items: UserData[];
+export type AdminsWithCount = {
+  items: AdminData[];
   totalItems: number;
 };
 
-export type UserState = {
-  users: UsersWithCount;
-  userData: (UserData & { permissions: string[] }) | null;
+export type AdminState = {
+  admins: AdminsWithCount;
+  adminData: (AdminData & { permissions: string[] }) | null;
   loading: boolean;
   error: string | null;
 };

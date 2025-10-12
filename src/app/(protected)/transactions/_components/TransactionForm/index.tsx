@@ -159,7 +159,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ row, isLoading, onSub
                           const value = (val as React.ChangeEvent<HTMLInputElement>).target.value;
                           const q = Number(value);
 
-                          // ✅ Allow empty input so user can delete and retype
+                          // ✅ Allow empty input so admin can delete and retype
                           if (value === '') {
                             setSelectedProducts((prev) =>
                               prev.map((prod) =>

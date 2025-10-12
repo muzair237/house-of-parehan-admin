@@ -7,11 +7,11 @@ export enum Permissions {
   UPDATE_ROLE = 'roles.update',
   DELETE_ROLE = 'roles.delete',
 
-  CREATE_USER = 'users.create',
-  UPDATE_USER_PASSWORD = 'users.update-password',
-  FORCE_LOGOUT_USER = 'users.force-logout',
-  UPDATE_USER = 'users.update',
-  DELETE_USER = 'users.delete',
+  CREATE_ADMIN = 'admins.create',
+  UPDATE_ADMIN_PASSWORD = 'admins.update-password',
+  FORCE_LOGOUT_ADMIN = 'admins.force-logout',
+  UPDATE_ADMIN = 'admins.update',
+  DELETE_ADMIN = 'admins.delete',
 
   CREATE_TRANSACTION = 'transactions.create',
   MARK_TRANSACTION_AS_PAID = 'transactions.mark-transaction-as-paid',
@@ -27,7 +27,7 @@ export enum Permissions {
 
   VIEW_ACTIVE_ALERTS = 'dashboard.view-active-alerts',
   VIEW_CARD_ANALYTICS = 'dashboard.view-card-analytics',
-  VIEW_CARD_USER_ANALYTICS = 'dashboard.view-card-user-analytics',
+  VIEW_CARD_ADMIN_ANALYTICS = 'dashboard.view-card-admin-analytics',
   VIEW_CARD_CUSTOMER_ANALYTICS = 'dashboard.view-card-customer-analytics',
   VIEW_CARD_INSTALLMENT_ANALYTICS = 'dashboard.view-card-installment-analytics',
   VIEW_CARD_SHOPKEEPER_ANALYTICS = 'dashboard.view-card-shopkeeper-analytics',

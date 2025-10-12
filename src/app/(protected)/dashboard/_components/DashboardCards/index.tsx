@@ -40,10 +40,10 @@ const DashboardCards = () => {
       {analytics &&
         [
           {
-            key: 'users',
-            title: 'Users',
+            key: 'admins',
+            title: 'Admins',
             icon: <AppIcon name="ShieldUser" />,
-            permission: Permissions.VIEW_CARD_USER_ANALYTICS,
+            permission: Permissions.VIEW_CARD_ADMIN_ANALYTICS,
           },
           {
             key: 'customers',

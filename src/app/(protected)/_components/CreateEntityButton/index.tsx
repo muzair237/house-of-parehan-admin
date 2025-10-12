@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react';
 
+import adminThunk from '@/slices/admin/thunk';
 import { useAppDispatch } from '@/slices/hooks';
 import permissionThunk from '@/slices/permission/thunk';
 import productThunk from '@/slices/product/thunk';
 import reminderThunk from '@/slices/reminder/thunk';
 import roleThunk from '@/slices/role/thunk';
 import transactionThunk from '@/slices/transaction/thunk';
-import userThunk from '@/slices/user/thunk';
 
 import Button from '@/components/shared/Button';
 import ModalContainer from '@/components/shared/ModalContainer';
@@ -16,13 +16,13 @@ import ModalContainer from '@/components/shared/ModalContainer';
 import { handleApiCall, hasPermission } from '@/lib/utils/helper';
 import { Permissions } from '@/lib/utils/permissions';
 
+import AdminForm from '../../admins/_components/adminForm';
 // import ReminderForm from '../../installments/_components/ReminderForm';
 import PermissionForm from '../../permissions/_components/PermissionForm';
 import ProductForm from '../../products/_components/ProductForm';
 import ReminderForm from '../../reminders/_components/ReminderForm';
 import RoleForm from '../../roles/_components/roleForm';
 import TransactionForm from '../../transactions/_components/TransactionForm';
-import UserForm from '../../users/_components/userForm';
 
 type Props = {
   entity: string;
@@ -60,11 +60,11 @@ const entityMap: Record<
     thunk: roleThunk.createRole,
     permission: Permissions.CREATE_ROLE,
   },
-  user: {
-    title: 'Create User',
-    FormComponent: UserForm,
-    thunk: userThunk.createUser,
-    permission: Permissions.CREATE_USER,
+  admin: {
+    title: 'Create Admin',
+    FormComponent: AdminForm,
+    thunk: adminThunk.createAdmin,
+    permission: Permissions.CREATE_ADMIN,
   },
   product: {
     title: 'Create Product',

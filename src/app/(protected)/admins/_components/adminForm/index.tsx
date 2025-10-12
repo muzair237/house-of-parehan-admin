@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 
-import { UserPayload } from '@/domains/user/types';
+import { AdminPayload } from '@/domains/admin/types';
 import { useAppDispatch, useAppSelector } from '@/slices/hooks';
 import roleThunk from '@/slices/role/thunk';
 
@@ -13,14 +13,14 @@ import Grid from '@/components/shared/Grid';
 
 import { removeDashes } from '@/lib/utils/helper';
 
-interface UserFormProps {
-  row?: Partial<UserPayload> & { _id?: string };
+interface AdminFormProps {
+  row?: Partial<AdminPayload> & { _id?: string };
   isLoading: boolean;
   activatingShopkeeper?: boolean;
-  onSubmit: (values: UserPayload) => void | Promise<void>;
+  onSubmit: (values: AdminPayload) => void | Promise<void>;
 }
 
-const UserForm: React.FC<UserFormProps> = ({
+const AdminForm: React.FC<AdminFormProps> = ({
   row,
   isLoading,
   activatingShopkeeper = false,
@@ -29,7 +29,7 @@ const UserForm: React.FC<UserFormProps> = ({
   const dispatch = useAppDispatch();
   const { uniqueRoles } = useAppSelector((state) => state.Role);
 
-  const form = useForm<UserPayload>({
+  const form = useForm<AdminPayload>({
     defaultValues: row
       ? {
           ...row,
@@ -37,6 +37,8 @@ const UserForm: React.FC<UserFormProps> = ({
         }
       : undefined,
   });
+
+  console.log('errors: ', form.formState.errors);
 
   useEffect(() => {
     dispatch(roleThunk.fetchUniqueRoles());
@@ -47,15 +49,7 @@ const UserForm: React.FC<UserFormProps> = ({
     : uniqueRoles;
 
   return (
-    <Form
-      form={form}
-      onSubmit={(values) => {
-        onSubmit({
-          ...values,
-          mobile: removeDashes(values.mobile),
-        });
-      }}
-    >
+    <Form form={form} onSubmit={onSubmit}>
       <Grid cols={2}>
         <Field
           name="fullName"
@@ -120,4 +114,4 @@ const UserForm: React.FC<UserFormProps> = ({
   );
 };
 
-export default UserForm;
+export default AdminForm;

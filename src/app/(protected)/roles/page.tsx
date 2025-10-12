@@ -9,7 +9,7 @@ import PageHeader from '../_components/PageHeader';
 
 const PAGE_TITLE = 'Roles';
 const PAGE_DESCRIPTION =
-  'Create and manage user roles to control access levels and responsibilities across the platform.';
+  'Create and manage admin roles to control access levels and responsibilities across the platform.';
 
 export const metadata = createSEO({
   title: PAGE_TITLE,

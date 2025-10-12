@@ -9,7 +9,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { parseDate } from '@/lib/utils/helper';
 
 const ProfileCard = () => {
-  const { user, isLoading } = useAppSelector((state) => state.Auth);
+  const { admin, isLoading } = useAppSelector((state) => state.Auth);
 
   if (isLoading) {
     return (
@@ -21,10 +21,10 @@ const ProfileCard = () => {
     );
   }
 
-  if (!user) {
+  if (!admin) {
     return (
       <div className="rounded-lg border border-[var(--border)] bg-[var(--muted)]/20 p-6 text-center text-[var(--muted-foreground)]">
-        No user data found.
+        No admin data found.
       </div>
     );
   }
@@ -33,23 +33,23 @@ const ProfileCard = () => {
     <div className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-6 shadow-sm space-y-4">
       {/* Basic Info Heading */}
       <h2 className="text-base font-semibold text-[var(--foreground)] border-b border-[var(--border)] pb-2">
-        User Information
+        Admin Information
       </h2>
 
       <div className="space-y-2">
         <h3 className="text-lg font-semibold text-[var(--foreground)]">
-          {user.fullName ?? 'Unnamed User'}
+          {admin.fullName ?? 'Unnamed Admin'}
         </h3>
 
         <div className="space-y-1">
           <p className="text-sm">
             <span className="font-medium text-[var(--muted-foreground)]">Email: </span>
-            <span className="text-[var(--foreground)]">{user.email}</span>
+            <span className="text-[var(--foreground)]">{admin.email}</span>
           </p>
 
           <p className="text-sm">
             <span className="font-medium text-[var(--muted-foreground)]">Joined On: </span>
-            <span className="text-[var(--foreground)]">{parseDate(user.createdAt)}</span>
+            <span className="text-[var(--foreground)]">{parseDate(admin.createdAt)}</span>
           </p>
         </div>
       </div>

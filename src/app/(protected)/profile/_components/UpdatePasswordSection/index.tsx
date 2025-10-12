@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 
-import PasswordForm from '@/app/(protected)/users/_components/PasswordForm';
-import { PasswordFormValues } from '@/domains/user/types';
+import PasswordForm from '@/app/(protected)/admins/_components/PasswordForm';
+import { PasswordFormValues } from '@/domains/admin/types';
+import adminThunk from '@/slices/admin/thunk';
 import { useAppDispatch, useAppSelector } from '@/slices/hooks';
-import userThunk from '@/slices/user/thunk';
 
 import Button from '@/components/shared/Button';
 import Heading from '@/components/shared/Heading';
@@ -14,14 +14,14 @@ import ModalContainer from '@/components/shared/ModalContainer';
 import { handleApiCall } from '@/lib/utils/helper';
 
 const UpdatePassword = () => {
-  const { user } = useAppSelector((state) => state.Auth);
+  const { admin } = useAppSelector((state) => state.Auth);
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const handlePasswordChange = async (values: PasswordFormValues, close: () => void) => {
     try {
       setIsLoading(true);
-      const { success } = await handleApiCall(dispatch, userThunk.updatePassword, {
-        id: user?._id,
+      const { success } = await handleApiCall(dispatch, adminThunk.updatePassword, {
+        id: admin?._id,
         payload: values,
       });
 

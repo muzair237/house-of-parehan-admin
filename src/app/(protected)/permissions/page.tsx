@@ -8,7 +8,8 @@ import { createSEO } from '@/lib/utils/seo';
 import PageHeader from '../_components/PageHeader';
 
 const PAGE_TITLE = 'Permissions';
-const PAGE_DESCRIPTION = 'Manage access controls and define what users can do within the platform.';
+const PAGE_DESCRIPTION =
+  'Manage access controls and define what admins can do within the platform.';
 
 export const metadata = createSEO({
   title: PAGE_TITLE,

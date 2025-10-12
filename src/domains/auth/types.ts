@@ -1,6 +1,6 @@
 import { BaseFields } from '@/lib/utils/types';
 
-export type UserData = {
+export type AdminData = {
   id: string;
   fullName: string;
   email: string;
@@ -9,7 +9,7 @@ export type UserData = {
 } & BaseFields;
 
 export type AuthState = {
-  user: UserData | null;
+  admin: AdminData | null;
   permissions: string[];
   isLoggedIn: boolean;
   allowedPages: string[];
