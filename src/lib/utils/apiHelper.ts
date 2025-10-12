@@ -32,10 +32,13 @@ export const DELETE_USER = `/${USER}/delete-user`;
 
 export const GET_ALL_TRANSACTIONS = `/${TRANSACTION}/get-all-transactions`;
 export const CREATE_TRANSACTION = `/${TRANSACTION}/create-transaction`;
+export const MARK_TRANSACTION_AS_PAID = `/${TRANSACTION}/mark-transaction-as-paid`;
 
 export const GET_ALL_PRODUCTS = `/${PRODUCT}/get-all-products`;
 export const CREATE_PRODUCT = `/${PRODUCT}/create-product`;
 export const UPDATE_PRODUCT = `/${PRODUCT}/update-product`;
+export const INCREASE_STOCK = `/${PRODUCT}/increase-stock`;
+export const MARK_AS_FEATURED = `/${PRODUCT}/mark-product-as-featured`;
 export const DELETE_PRODUCT = `/${PRODUCT}/delete-product`;
 
 export const GET_ALL_REMINDERS = `/${REMINDER}/get-all-reminders`;

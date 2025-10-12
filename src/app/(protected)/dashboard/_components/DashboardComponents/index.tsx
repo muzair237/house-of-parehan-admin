@@ -33,7 +33,6 @@ const DashboardComponents = () => {
 
   return (
     <div className="space-y-2">
-
       {permissions.includes(Permissions.VIEW_CARD_ANALYTICS) && (
         <SectionWrapper title="Platform Analytics Overview">
           <DashboardCards />

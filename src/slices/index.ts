@@ -4,11 +4,11 @@ import AuthReducer from './auth/reducer';
 import DashboardReducer from './dashboard/reducer';
 import EnquiryReducer from './enquiry/reducer';
 import PermissionReducer from './permission/reducer';
+import ProductReducer from './product/reducer';
 import ReminderReducer from './reminder/reducer';
 import RoleReducer from './role/reducer';
 import TransactionReducer from './transaction/reducer';
 import UserReducer from './user/reducer';
-import ProductReducer from './product/reducer';
 
 const rootReducer = combineReducers({
   Auth: AuthReducer,

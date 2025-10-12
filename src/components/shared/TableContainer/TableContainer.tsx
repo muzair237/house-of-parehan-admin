@@ -30,6 +30,16 @@ import { SortDirection } from './types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 type DateRangeString = { startDate?: string; endDate?: string };
 type FilterValue = string | boolean | DateRangeString | undefined;
 
@@ -42,6 +52,7 @@ type TableContainerProps = {
   initialSelectedRows?: string[];
   additionalFilters?: Record<string, FilterValue>;
   onSelectedRowsChange?: (selectedRows: Record<string, any>[]) => void;
+  disableRowCheckbox?: (row: Record<string, any>) => boolean;
 };
 
 const TableContainer: React.FC<TableContainerProps> = ({
@@ -53,6 +64,7 @@ const TableContainer: React.FC<TableContainerProps> = ({
   initialSelectedRows = [],
   additionalFilters = {},
   onSelectedRowsChange,
+  disableRowCheckbox,
 }) => {
   const config = tableConfigs[entity];
   const {
@@ -202,9 +214,10 @@ const TableContainer: React.FC<TableContainerProps> = ({
               checked={selectedRows.some((ele) => ele._id === row._id)}
               onChange={(checked: boolean) => handleRowSelect(row, checked)}
               disabled={
-                !selectedRows.some((ele) => ele._id === row._id) &&
-                maxSelectable !== undefined &&
-                selectedRows.length >= maxSelectable
+                (disableRowCheckbox && disableRowCheckbox(row)) ||
+                (!selectedRows.some((ele) => ele._id === row._id) &&
+                  maxSelectable !== undefined &&
+                  selectedRows.length >= maxSelectable)
               }
             />
           ),

@@ -24,6 +24,8 @@ import {
 import { Permissions } from '@/lib/utils/permissions';
 import { Option } from '@/lib/utils/types';
 
+import ReminderForm from '../ReminderForm';
+
 interface ReminderActionBtnsProps {
   row: ReminderData;
   refetch: () => Promise<void>;
@@ -105,7 +107,7 @@ const ReminderActionBtns: React.FC<ReminderActionBtnsProps> = ({ row, refetch })
         )}
       </ModalContainer>
 
-      {/* {hasPermission(Permissions.UPDATE_REMINDER) && (
+      {hasPermission(Permissions.UPDATE_REMINDER) && (
         <ModalContainer
           title="Update Reminder"
           closeButton={false}
@@ -126,7 +128,7 @@ const ReminderActionBtns: React.FC<ReminderActionBtnsProps> = ({ row, refetch })
             </Tooltip>
           )}
         </ModalContainer>
-      )} */}
+      )}
 
       {hasPermission(Permissions.DELETE_REMINDER) && (
         <ModalContainer

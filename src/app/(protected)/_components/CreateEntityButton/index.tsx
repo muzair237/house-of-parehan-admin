@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 
 import { useAppDispatch } from '@/slices/hooks';
 import permissionThunk from '@/slices/permission/thunk';
+import productThunk from '@/slices/product/thunk';
+import reminderThunk from '@/slices/reminder/thunk';
 import roleThunk from '@/slices/role/thunk';
 import transactionThunk from '@/slices/transaction/thunk';
 import userThunk from '@/slices/user/thunk';
@@ -16,11 +18,11 @@ import { Permissions } from '@/lib/utils/permissions';
 
 // import ReminderForm from '../../installments/_components/ReminderForm';
 import PermissionForm from '../../permissions/_components/PermissionForm';
+import ProductForm from '../../products/_components/ProductForm';
+import ReminderForm from '../../reminders/_components/ReminderForm';
 import RoleForm from '../../roles/_components/roleForm';
 import TransactionForm from '../../transactions/_components/TransactionForm';
 import UserForm from '../../users/_components/userForm';
-import ProductForm from '../../products/_components/ProductForm';
-import productThunk from '@/slices/product/thunk';
 
 type Props = {
   entity: string;
@@ -69,20 +71,21 @@ const entityMap: Record<
     FormComponent: ProductForm,
     thunk: productThunk.createProduct,
     permission: Permissions.CREATE_PRODUCT,
-    modalSize: 'md'
+    modalSize: 'md',
   },
   transaction: {
     title: 'Create Transaction',
     FormComponent: TransactionForm,
     thunk: transactionThunk.createTransaction,
     permission: Permissions.CREATE_TRANSACTION,
+    modalSize: 'md',
   },
-  // reminder: {
-  //   title: 'Create Reminder',
-  //   FormComponent: ReminderForm,
-  //   thunk: reminderThunk.createReminder,
-  //   permission: Permissions.CREATE_REMINDER,
-  // },
+  reminder: {
+    title: 'Create Reminder',
+    FormComponent: ReminderForm,
+    thunk: reminderThunk.createReminder,
+    permission: Permissions.CREATE_REMINDER,
+  },
 };
 
 const CreateEntityButton = ({ entity, refetch }: Props) => {

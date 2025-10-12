@@ -9,6 +9,7 @@ import productThunk from '@/slices/product/thunk';
 import AppBadge from '@/components/shared/Badge';
 import Button from '@/components/shared/Button';
 import AppIcon from '@/components/shared/Icon';
+import Input from '@/components/shared/Input';
 import ModalContainer from '@/components/shared/ModalContainer';
 import RecordInfo from '@/components/shared/Modals/RecordInfoModal';
 import Tooltip from '@/components/shared/Tooltip';
@@ -24,6 +25,7 @@ import {
 } from '@/lib/utils/helper';
 import { Permissions } from '@/lib/utils/permissions';
 
+import StockForm from '../IncreaseStockForm';
 import ProductForm from '../ProductForm';
 
 interface ProductActionBtnsProps {
@@ -46,6 +48,40 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
         close();
         refetch();
       }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleIncreaseStock = async (values: { quantity: number }, close: () => void) => {
+    setIsLoading(true);
+    try {
+      const { success } = await handleApiCall(dispatch, productThunk.increaseStock, {
+        id: row._id,
+        quantity: +values.quantity,
+      });
+      if (success) {
+        close();
+        refetch();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleToggleFeatured = async (isFeatured: boolean, close: () => void) => {
+    setIsLoading(true);
+    try {
+      const { success } = await handleApiCall(dispatch, productThunk.markAsFeatured, {
+        id: row._id,
+        isFeatured: isFeatured,
+      });
+      if (success) close();
+      refetch();
     } catch (err) {
       console.error(err);
     } finally {
@@ -103,10 +139,9 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
           title="Update Product"
           closeButton={false}
           closeOnOutsideClick={false}
-          size="lg"
           content={(close) => (
             <ProductForm
-              row={excludeFields(row, ['_id', 'createdAt', 'isFeatured'])}
+              row={excludeFields(row, ['_id', 'createdAt', 'isFeatured', 'code'])}
               isLoading={isLoading}
               onSubmit={(v) => handleUpdate(v, close)}
             />
@@ -122,7 +157,29 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
         </ModalContainer>
       )}
 
-      {/* Toggle Featured */}
+      {hasPermission(Permissions.INCREASE_STOCK) && (
+        <ModalContainer
+          title="Increase Stock"
+          closeButton={false}
+          closeOnOutsideClick={false}
+          content={(close) => (
+            <StockForm
+              currentStock={row.stock}
+              isLoading={isLoading}
+              onSubmit={(v) => handleIncreaseStock(v, close)}
+            />
+          )}
+        >
+          {(open) => (
+            <Tooltip label="Increase Stock">
+              <Button onClick={open} minimal>
+                <AppIcon name="ArrowUp" size={24} className="text-blue-500" />
+              </Button>
+            </Tooltip>
+          )}
+        </ModalContainer>
+      )}
+
       {hasPermission(Permissions.MARK_PRODUCT_AS_FEATURED) && (
         <ModalContainer
           title={row.isFeatured ? 'Unmark as Featured' : 'Mark as Featured'}
@@ -135,13 +192,7 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
             label: row.isFeatured ? 'Unmark' : 'Mark Featured',
             variant: row.isFeatured ? 'destructive' : 'success',
             loading: isLoading,
-            onClick: async (close) => {
-              try {
-                await handleUpdate(convertToFormData({ isFeatured: !row.isFeatured }), close);
-              } catch (err) {
-                console.error(err);
-              }
-            },
+            onClick: (close) => handleToggleFeatured(!row.isFeatured, close),
           }}
         >
           {(open) => (

@@ -7,9 +7,9 @@ import ReminderActionBtns from '@/app/(protected)/reminders/_components/ActionBt
 import RoleActionBtns from '@/app/(protected)/roles/_components/ActionBtns';
 import TransactionActionBtns from '@/app/(protected)/transactions/_components/ActionBtns';
 import UserActionBtns from '@/app/(protected)/users/_components/ActionBtns';
-import { Categories } from '@/domains/product/types';
+import { Categories, ProductData } from '@/domains/product/types';
 import { ReminderStatus } from '@/domains/reminder/types';
-import { TransactionStatus } from '@/domains/transaction/types';
+import { TransactionProduct, TransactionStatus } from '@/domains/transaction/types';
 
 import Badge from '@/components/shared/Badge';
 
@@ -161,7 +161,9 @@ export const tableConfigs: Record<string, TableConfig> = {
     pageSize: 10,
     columns: [
       { key: 'createdAt', label: 'Date', sortable: true },
+      { key: 'code', label: 'Code', sortable: true },
       { key: 'name', label: 'Name', sortable: true },
+
       {
         key: 'price',
         label: 'Price',
@@ -241,27 +243,33 @@ export const tableConfigs: Record<string, TableConfig> = {
     defaultSort: { key: 'createdAt', direction: 'desc' },
     pageSize: 10,
     columns: [
-      { key: 'createdAt', label: 'Date', sortable: true },
       {
-        key: 'customerName',
-        label: 'Customer Name',
+        key: 'createdAt',
+        label: 'Date',
+        sortable: true,
+        render: (row) => new Date(row.createdAt).toLocaleDateString(),
+      },
+      {
+        key: 'products',
+        label: 'Products',
         render: (row) =>
-          `${row.installmentId.customer.firstName} ${row.installmentId.customer.lastName}`,
+          row.products
+            ?.map((p: TransactionProduct) =>
+              typeof p.product === 'object' ? p.product.name : `Product ID: ${p.product}`
+            )
+            .join(', ') || '-',
+      },
+      {
+        key: 'totalAmount',
+        label: 'Total Amount (PKR)',
+        render: (row) => formatCurrency(row.totalAmount),
         sortable: true,
       },
       {
-        key: 'shopkeeperName',
-        label: 'Shopkeeper Name',
-        render: (row) => row.installmentId.createdBy.fullName,
+        key: 'paidAt',
+        label: 'Paid At',
         sortable: true,
       },
-      {
-        key: 'amount',
-        label: 'Amount (PKR)',
-        render: (row) => formatCurrency(row.amount),
-        sortable: true,
-      },
-      { key: 'paidAt', label: 'Paid At', sortable: true },
       {
         key: 'status',
         label: 'Status',
@@ -274,16 +282,25 @@ export const tableConfigs: Record<string, TableConfig> = {
             {normalCase(TransactionStatus[row.status])}
           </Badge>
         ),
+        sortable: true,
       },
-
-      { key: 'actions', label: 'Actions' },
+      {
+        key: 'note',
+        label: 'Note',
+        render: (row) => row.note || '—',
+      },
+      {
+        key: 'actions',
+        label: 'Actions',
+      },
     ],
+
     filters: [
       {
         key: 'search',
         label: 'Search',
         type: 'input',
-        placeholder: 'Search...',
+        placeholder: 'Search by product or note...',
       },
       {
         key: 'date',
@@ -317,10 +334,9 @@ export const tableConfigs: Record<string, TableConfig> = {
         key: 'status',
         label: 'Status',
         render: (row) => {
-          const statusToBadgeType: Record<ReminderStatus, 'info' | 'active' | 'error'> = {
+          const statusToBadgeType: Record<ReminderStatus, 'info' | 'active'> = {
             [ReminderStatus.SET]: 'active',
             [ReminderStatus.COMPLETED]: 'info',
-            [ReminderStatus.CANCELLED]: 'error',
           };
 
           const p = row.status as ReminderStatus;
@@ -374,10 +390,9 @@ export const tableConfigs: Record<string, TableConfig> = {
         key: 'status',
         label: 'Status',
         render: (row) => {
-          const statusToBadgeType: Record<ReminderStatus, 'info' | 'active' | 'error'> = {
+          const statusToBadgeType: Record<ReminderStatus, 'info' | 'active'> = {
             [ReminderStatus.SET]: 'active',
             [ReminderStatus.COMPLETED]: 'info',
-            [ReminderStatus.CANCELLED]: 'error',
           };
 
           const p = row.status as ReminderStatus;

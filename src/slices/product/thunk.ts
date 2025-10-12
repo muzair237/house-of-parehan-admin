@@ -7,6 +7,8 @@ import {
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   GET_ALL_PRODUCTS,
+  INCREASE_STOCK,
+  MARK_AS_FEATURED,
   UPDATE_PRODUCT,
 } from '@/lib/utils/apiHelper';
 import HttpClient from '@/lib/utils/axios/axiosWrapper';
@@ -45,6 +47,31 @@ const updateProduct = createAsyncThunk<void, { id: string; payload: FormData }>(
   }
 );
 
+const increaseStock = createAsyncThunk<void, { id: string; quantity: number }>(
+  'product/increaseStock',
+  async ({ id, quantity }) => {
+    return wrapAsync(async () => {
+      await HttpClient.patch(`${INCREASE_STOCK}/${id}`, { quantity });
+      Toast({ type: 'success', message: 'Stock increased successfully!' });
+    });
+  }
+);
+
+const markAsFeatured = createAsyncThunk<void, { id: string; isFeatured: boolean }>(
+  'product/markAsFeatured',
+  async ({ id, isFeatured }) => {
+    return wrapAsync(async () => {
+      await HttpClient.patch(`${MARK_AS_FEATURED}/${id}`, { isFeatured });
+      Toast({
+        type: 'success',
+        message: isFeatured
+          ? 'Product marked as featured successfully!'
+          : 'Product unmarked as featured successfully!',
+      });
+    });
+  }
+);
+
 const deleteProduct = createAsyncThunk<void, DeletePayload>('product/delete', async (id) => {
   return wrapAsync(async () => {
     await HttpClient.delete(`${DELETE_PRODUCT}/${id}`);
@@ -56,7 +83,9 @@ const productThunk = {
   fetchAllProducts,
   createProduct,
   updateProduct,
+  increaseStock,
   deleteProduct,
+  markAsFeatured,
 };
 
 export default productThunk;

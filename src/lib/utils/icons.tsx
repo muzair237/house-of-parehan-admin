@@ -1,4 +1,5 @@
 import {
+  ArrowUp,
   Ban,
   BellRing,
   Box,
@@ -59,6 +60,7 @@ export const Icons = {
   CheckIcon,
   Store,
   Check,
+  ArrowUp,
   ShieldCheck,
   Info,
   Star,

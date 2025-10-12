@@ -9,6 +9,7 @@ import ReactECharts from 'echarts-for-react';
 
 import Skeleton from '@/components/shared/Skeleton';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 const TopRevenueChart = () => {
   const dispatch = useAppDispatch();

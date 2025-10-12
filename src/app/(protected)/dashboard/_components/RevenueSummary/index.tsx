@@ -30,6 +30,8 @@ import Skeleton from '@/components/shared/Skeleton';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // your custom Input
 
 const RevenueLineChart = () => {

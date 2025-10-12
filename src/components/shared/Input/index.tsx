@@ -17,7 +17,7 @@ import Paragraph from '../Paragraph';
 import Select from '../Select';
 import UploadFile from '../UploadFile';
 
-type NativeChangeHandler = (
+export type NativeChangeHandler = (
   event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 ) => void;
 type MultiSelectChangeHandler = (value: string[]) => void;

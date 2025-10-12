@@ -22,7 +22,7 @@ const Products = () => {
       <PageHeader
         title={PAGE_TITLE}
         description={PAGE_DESCRIPTION}
-        icon={<AppIcon name="Box" />} 
+        icon={<AppIcon name="Box" />}
         align="center"
       />
       <TableContainer entity="products" />

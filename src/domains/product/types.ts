@@ -12,6 +12,7 @@ export type ProductData = {
   price: number;
   category: Categories;
   stock: number;
+  code: string;
   images: string[];
   isFeatured: boolean;
 } & BaseFields;

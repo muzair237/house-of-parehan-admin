@@ -1,23 +1,32 @@
 import { BaseFields } from '@/lib/utils/types';
 
+import { ProductData } from '../product/types';
+
 export enum TransactionStatus {
   PENDING = 0,
   PAID = 1,
 }
 
-export type TransactionData = {
-  amount: number;
+export type TransactionProduct = {
+  _id?: string;
+  product: string | ProductData;
+  quantity: number;
+  priceAtSale: number;
+};
+
+export type TransactionData = BaseFields & {
+  products: TransactionProduct[];
+  totalAmount: number;
   status: TransactionStatus;
   paidAt: string;
-  note: string;
-} & BaseFields;
+  note?: string;
+};
 
 export type TransactionPayload = {
-  installmentId: string;
-  amount: number;
-  status: TransactionStatus;
-  paidAt?: string;
-  note: string;
+  products: TransactionProduct[];
+  totalAmount: number;
+  status?: TransactionStatus;
+  note?: string;
 };
 
 export type TransactionsWithCount = {

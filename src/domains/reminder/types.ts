@@ -2,8 +2,7 @@ import { BaseFields } from '@/lib/utils/types';
 
 export enum ReminderStatus {
   SET = 0,
-  CANCELLED = 1,
-  COMPLETED = 2,
+  COMPLETED = 1,
 }
 
 export type ReminderData = {
