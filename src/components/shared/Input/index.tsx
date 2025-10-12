@@ -182,7 +182,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             fileSize={fileSize}
             displayFile={value as string | string[] | undefined}
             onChange={(files) => {
-              (onChange as (files: File | File[] | null) => void)?.(files);
+              const normalized = files === null ? [] : Array.isArray(files) ? files : [files];
+              (onChange as (files: (string | File)[]) => void)?.(normalized);
             }}
           />
         ) : type === 'date' ? (

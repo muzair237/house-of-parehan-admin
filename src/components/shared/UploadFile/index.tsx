@@ -20,7 +20,7 @@ interface UploadFileProps {
   multiple?: boolean;
   maxFiles?: number;
   accept?: Record<string, string[]>;
-  onChange: (files: File | File[] | null) => void;
+  onChange: (files: (string | File)[] | null) => void;
   fileSize?: number; // max file size in MB
   displayFile?: string | string[];
 }
@@ -31,7 +31,7 @@ type SelectedFile = {
   formattedSize?: string;
 };
 
-const UploadFile = ({
+const UploadFile: React.FC<UploadFileProps> = ({
   isInvalid,
   multiple = false,
   maxFiles = 1,
@@ -42,88 +42,75 @@ const UploadFile = ({
   onChange,
   fileSize = 1,
   displayFile,
-}: UploadFileProps) => {
-  const [originalFiles, setOriginalFiles] = useState<File[]>([]);
+}) => {
+  const [combinedFiles, setCombinedFiles] = useState<(string | File)[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<SelectedFile[]>([]);
 
-  // Handle local file selection
+  useEffect(() => {
+    if (!displayFile) return;
+
+    const files: (string | File)[] = Array.isArray(displayFile) ? displayFile : [displayFile];
+
+    setCombinedFiles(files);
+
+    const previews = files.map((file) => ({
+      name: typeof file === 'string' ? file.split('/').pop() || 'Image' : file.name,
+      preview: typeof file === 'string' ? file : URL.createObjectURL(file),
+      formattedSize: typeof file === 'string' ? undefined : formatBytes(file.size),
+    }));
+
+    setSelectedFiles(previews);
+  }, [displayFile]);
+
   const handleChange = (files: File[]) => {
     if (!files.length) return;
 
     const oversized = files.filter((file) => file.size / (1024 * 1024) > fileSize);
     if (oversized.length > 0) {
       oversized.forEach((file) =>
-        Toast({ type: 'error', message: `${file.name} exceeds ${fileSize} MB` })
+        Toast({
+          type: 'error',
+          message: `${file.name} exceeds ${fileSize} MB`,
+        })
       );
       return;
     }
 
-    // Create preview data for UI only
     const newPreviews = files.map((file) => ({
       name: file.name,
       preview: URL.createObjectURL(file),
       formattedSize: formatBytes(file.size),
     }));
-    if (multiple) {
-      let combinedOriginal = [...originalFiles, ...files];
-      let combinedPreviews = [...selectedFiles, ...newPreviews];
 
-      if (combinedOriginal.length > maxFiles) {
-        combinedOriginal = combinedOriginal.slice(0, maxFiles);
-        combinedPreviews = combinedPreviews.slice(0, maxFiles);
-      }
+    const newCombined = multiple
+      ? [...combinedFiles, ...files].slice(0, maxFiles)
+      : files.slice(0, 1);
 
-      setOriginalFiles(combinedOriginal);
-      setSelectedFiles(combinedPreviews);
+    const newSelected = multiple
+      ? [...selectedFiles, ...newPreviews].slice(0, maxFiles)
+      : newPreviews.slice(0, 1);
 
-      // Pass **File[]** to parent
-      onChange(combinedOriginal);
-    } else {
-      setOriginalFiles(files);
-      setSelectedFiles(newPreviews);
+    setCombinedFiles(newCombined);
+    setSelectedFiles(newSelected);
 
-      // Pass single File to parent
-      onChange(files[0]);
-    }
+    onChange(newCombined);
   };
-
-  // Handle parent-provided displayFile
-  useEffect(() => {
-    if (!displayFile) return;
-
-    const files: (string | File)[] = Array.isArray(displayFile) ? displayFile : [displayFile];
-
-    const newFiles: SelectedFile[] = files
-      .map((file) => {
-        if (typeof file === 'string') {
-          const name = file.split('/').pop() || 'Preview';
-          return { name, preview: file };
-        } else if (file instanceof File) {
-          return {
-            name: file.name,
-            preview: URL.createObjectURL(file),
-            formattedSize: formatBytes(file.size),
-          };
-        } else {
-          return { name: 'Unknown', preview: '' };
-        }
-      })
-      .filter((f) => f.preview); // remove empty previews
-
-    setSelectedFiles(newFiles);
-  }, [displayFile]);
 
   const handleDelete = (fileToDelete: SelectedFile) => {
     setSelectedFiles((prev) => prev.filter((f) => f.preview !== fileToDelete.preview));
 
-    if (multiple) {
-      const updated = originalFiles.filter((f) => f.name !== fileToDelete.name);
-      setOriginalFiles(updated);
-      onChange(updated.length ? updated : null);
-    } else {
-      setOriginalFiles([]);
-      onChange(null);
-    }
+    // Remove from main array
+    const updatedCombined = combinedFiles.filter((f) => {
+      if (typeof f === 'string') {
+        return f !== fileToDelete.preview;
+      } else {
+        return f.name !== fileToDelete.name;
+      }
+    });
+
+    setCombinedFiles(updatedCombined);
+
+    onChange(updatedCombined.length ? updatedCombined : null);
   };
 
   const getExtensions = () =>
@@ -135,10 +122,10 @@ const UploadFile = ({
   return (
     <div
       className={`
-      border-2 border-dashed rounded-[var(--radius)]
-      p-6 text-center cursor-pointer
-      ${isInvalid ? 'border-destructive' : 'border-border'}
-    `}
+        border-2 border-dashed rounded-[var(--radius)]
+        p-6 text-center cursor-pointer
+        ${isInvalid ? 'border-destructive' : 'border-border'}
+      `}
     >
       <Dropzone
         disabled={selectedFiles.length >= maxFiles}
@@ -150,9 +137,7 @@ const UploadFile = ({
         {({ getRootProps, getInputProps }: DropzoneState) => (
           <div
             {...getRootProps()}
-            className={`
-     ${selectedFiles.length >= maxFiles ? 'opacity-60 cursor-not-allowed' : ''}
-    `}
+            className={`${selectedFiles.length >= maxFiles ? 'opacity-60 cursor-not-allowed' : ''}`}
           >
             <input {...getInputProps()} />
             <div className="flex flex-col items-center space-y-3">
@@ -169,7 +154,7 @@ const UploadFile = ({
         )}
       </Dropzone>
 
-      {/* Previews */}
+      {/* Preview List */}
       {selectedFiles.length > 0 && (
         <div className="mt-4 space-y-3">
           {selectedFiles.map((f) => (
@@ -177,7 +162,7 @@ const UploadFile = ({
               key={f.preview}
               className="flex items-center justify-between bg-card p-3 rounded-[var(--radius)] border border-border"
             >
-              {/* Click image to open modal */}
+              {/* Image preview */}
               <ModalContainer title={f.name} content={() => <ImagePreview images={f.preview} />}>
                 {(open) => (
                   <div className="flex items-center gap-3 cursor-pointer" onClick={open}>
@@ -208,7 +193,7 @@ const UploadFile = ({
             </div>
           ))}
 
-          {/* View All Button for all images */}
+          {/* "View All" button */}
           <ModalContainer
             title="Images"
             content={() => <ImagePreview images={selectedFiles.map((f) => f.preview)} />}

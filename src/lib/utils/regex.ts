@@ -6,3 +6,5 @@ export const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 export const dotNotation = /^[a-zA-Z-]+(\.[a-zA-Z-]+)+$/;
 export const leadingSlash = /^\/.*/;
 export const numberGrouping = /\B(?=(\d{3})+(?!\d))/g;
+
+export const positiveNumberRegex = /^(?!0\d)\d*(?:\.\d+)?$/;

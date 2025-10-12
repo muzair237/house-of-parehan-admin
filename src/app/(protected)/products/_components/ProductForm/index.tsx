@@ -10,6 +10,7 @@ import { useForm } from '@/components/shared/Form/core/useForm';
 import Grid from '@/components/shared/Grid';
 
 import { convertToFormData, enumToOptions } from '@/lib/utils/helper';
+import { positiveNumberRegex } from '@/lib/utils/regex';
 
 interface ProductFormProps {
   row?: Partial<ProductData>;
@@ -26,10 +27,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ row, isLoading, onSubmit }) =
     }),
   });
 
-  const handleSubmit = (values: ProductData) => {
-    console.log('values: ', values);
-    onSubmit(convertToFormData(values));
-  };
+  const handleSubmit = (values: ProductData) => onSubmit(convertToFormData(values));
 
   return (
     <Form form={form} onSubmit={handleSubmit}>
@@ -50,7 +48,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ row, isLoading, onSubmit }) =
           label="Price (Rs)"
           type="number"
           placeholder="1000"
-          rules={[{ required: true, message: 'Price is required' }]}
+          rules={[
+            { required: true, message: 'Price is required' },
+            {
+              pattern: positiveNumberRegex,
+              message: 'Please enter a valid positive number.',
+            },
+          ]}
         />
       </Grid>
 
@@ -60,7 +64,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ row, isLoading, onSubmit }) =
           label="Stock Quantity"
           type="number"
           placeholder="50"
-          rules={[{ required: true, message: 'Stock quantity is required' }]}
+          rules={[
+            { required: true, message: 'Stock quantity is required' },
+            {
+              pattern: positiveNumberRegex,
+              message: 'Please enter a valid positive number.',
+            },
+          ]}
         />
         <Field
           name="category"
