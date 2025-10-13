@@ -9,13 +9,11 @@ import productThunk from '@/slices/product/thunk';
 import AppBadge from '@/components/shared/Badge';
 import Button from '@/components/shared/Button';
 import AppIcon from '@/components/shared/Icon';
-import Input from '@/components/shared/Input';
 import ModalContainer from '@/components/shared/ModalContainer';
 import RecordInfo from '@/components/shared/Modals/RecordInfoModal';
 import Tooltip from '@/components/shared/Tooltip';
 
 import {
-  convertToFormData,
   excludeFields,
   formatCurrency,
   handleApiCall,
@@ -96,10 +94,11 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
   } as const;
 
   const preparedData = [
+    { label: 'Date', value: parseDate(row.createdAt) },
+    { label: 'Code', value: row.code },
     { label: 'Name', value: row.name },
-    { label: 'Description', value: row.description },
     { label: 'Price', value: formatCurrency(row.price) },
-    { label: 'Stock', value: row.stock.toLocaleString() },
+    { label: 'Stock', value: row.stock?.toLocaleString() ?? '—' },
     {
       label: 'Category',
       value: (
@@ -112,9 +111,16 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
         </AppBadge>
       ),
     },
+    {
+      label: 'Featured',
+      value: (
+        <AppBadge type={row.isFeatured ? 'active' : 'info'} rounded="full" size="sm">
+          {row.isFeatured ? 'Featured' : 'Not Featured'}
+        </AppBadge>
+      ),
+    },
     { label: 'Images', value: row.images },
-    { label: 'Featured', value: row.isFeatured ? 'Yes' : 'No' },
-    { label: 'Created At', value: parseDate(row.createdAt) },
+    { label: 'Description', value: row.description },
   ];
 
   return (

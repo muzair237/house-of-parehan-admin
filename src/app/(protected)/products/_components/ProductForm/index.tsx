@@ -64,7 +64,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ row, isLoading, onSubmit }) =
           label="Stock Quantity"
           type="number"
           placeholder="50"
-          min={1}
+          min={0}
           disabled={!!row?.stock}
           rules={[
             { required: true, message: 'Stock quantity is required' },

@@ -117,8 +117,7 @@ export const tableConfigs: Record<string, TableConfig> = {
     columns: [
       { key: 'createdAt', label: 'Date', sortable: true },
       { key: 'fullName', label: 'Name', sortable: true },
-      { key: 'mobile', label: 'Mobile No.' },
-      { key: 'accountExpiryDate', label: 'Account Expiry Date', sortable: true },
+      { key: 'email', label: 'Email' },
       {
         key: 'roles',
         label: 'Roles',

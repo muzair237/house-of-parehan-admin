@@ -146,7 +146,6 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ row, isLoading, onSub
                   </div>
                 </div>
 
-                {/* Quantity + Remove aligned */}
                 <div className="flex items-end sm:items-center gap-3 sm:gap-4">
                   <div className="w-32">
                     <Input
@@ -157,9 +156,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ row, isLoading, onSub
                       onChange={
                         ((val: unknown) => {
                           const value = (val as React.ChangeEvent<HTMLInputElement>).target.value;
-                          const q = Number(value);
 
-                          // ✅ Allow empty input so admin can delete and retype
                           if (value === '') {
                             setSelectedProducts((prev) =>
                               prev.map((prod) =>
@@ -171,19 +168,24 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ row, isLoading, onSub
                             return;
                           }
 
-                          // ✅ Validate number
-                          if (!isNaN(q) && q >= 0) {
-                            const stock = p.stock ?? 0;
+                          let q = Math.floor(Number(value));
 
-                            // ✅ If quantity exceeds stock, cap it to max stock
-                            const finalQty = q > stock ? stock : q;
+                          if (isNaN(q)) return;
 
-                            setSelectedProducts((prev) =>
-                              prev.map((prod) =>
-                                prod._id === p._id ? { ...prod, quantity: finalQty } : prod
-                              )
-                            );
+                          if (q <= 0) q = 1;
+
+                          if (!Number.isInteger(Number(value))) {
+                            q = Math.floor(Number(value));
                           }
+
+                          const stock = p.stock ?? 0;
+                          const finalQty = q > stock ? stock : q;
+
+                          setSelectedProducts((prev) =>
+                            prev.map((prod) =>
+                              prod._id === p._id ? { ...prod, quantity: finalQty } : prod
+                            )
+                          );
                         }) as NativeChangeHandler
                       }
                     />

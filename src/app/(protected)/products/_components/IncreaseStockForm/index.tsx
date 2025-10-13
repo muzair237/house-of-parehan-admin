@@ -6,7 +6,7 @@ import Button from '@/components/shared/Button';
 import { Field, Form } from '@/components/shared/Form';
 import { useForm } from '@/components/shared/Form/core/useForm';
 
-import { positiveNumberRegex } from '@/lib/utils/regex';
+import { positiveNumberRegex, positiveNumberRegexWithoutDecimal } from '@/lib/utils/regex';
 
 interface StockFormValues {
   quantity: number;
@@ -40,7 +40,7 @@ const StockForm: React.FC<StockFormProps> = ({ currentStock, isLoading, onSubmit
         rules={[
           { required: true, message: 'Quantity is required' },
           {
-            pattern: positiveNumberRegex,
+            pattern: positiveNumberRegexWithoutDecimal,
             message: 'Please enter a valid positive number.',
           },
         ]}

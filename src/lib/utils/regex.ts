@@ -8,3 +8,5 @@ export const leadingSlash = /^\/.*/;
 export const numberGrouping = /\B(?=(\d{3})+(?!\d))/g;
 
 export const positiveNumberRegex = /^(?!0\d)\d*(?:\.\d+)?$/;
+
+export const positiveNumberRegexWithoutDecimal = /^[1-9]\d*$/;
