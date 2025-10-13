@@ -5,31 +5,17 @@ import React, { useState } from 'react';
 type AnalyticsCardProps = {
   title: string;
   total: number | string;
-  active?: number | string;
-  inactive?: number | string;
-  defaulted?: number | string;
-  completed?: number | string;
+  paid?: number | string;
+  pending?: number | string;
   icon?: React.ReactNode;
 };
 
-const AnalyticsCard = ({
-  title,
-  total,
-  active,
-  inactive,
-  defaulted,
-  completed,
-  icon,
-}: AnalyticsCardProps) => {
-  const [view, setView] = useState<'total' | 'active' | 'inactive' | 'defaulted' | 'completed'>(
-    'total'
-  );
+const AnalyticsCard = ({ title, total, paid, pending, icon }: AnalyticsCardProps) => {
+  const [view, setView] = useState<'total' | 'paid' | 'pending'>('total');
 
   const getValue = () => {
-    if (view === 'active' && active !== undefined) return active;
-    if (view === 'inactive' && inactive !== undefined) return inactive;
-    if (view === 'defaulted' && defaulted !== undefined) return defaulted;
-    if (view === 'completed' && completed !== undefined) return completed;
+    if (view === 'paid' && paid !== undefined) return paid;
+    if (view === 'pending' && pending !== undefined) return pending;
     return total;
   };
 
@@ -46,10 +32,7 @@ const AnalyticsCard = ({
 
       <h3 className="text-3xl font-bold mt-3 tracking-tight">{getValue()}</h3>
 
-      {(active !== undefined ||
-        inactive !== undefined ||
-        defaulted !== undefined ||
-        completed !== undefined) && (
+      {(paid !== undefined || pending !== undefined) && (
         <div className="flex flex-wrap items-center gap-1.5 mt-3">
           {/* Total */}
           <button
@@ -63,59 +46,31 @@ const AnalyticsCard = ({
             Total
           </button>
 
-          {/* Active */}
-          {active !== undefined && (
+          {/* Paid */}
+          {paid !== undefined && (
             <button
-              onClick={() => setView('active')}
+              onClick={() => setView('paid')}
               className={`px-2.5 py-0.5 rounded-sm text-sm transition-colors ${
-                view === 'active'
+                view === 'paid'
                   ? 'bg-[var(--success)] text-[var(--success-foreground)]'
                   : 'bg-[#d5f5d5] text-[#1b5e20]' /* light green alt */
               }`}
             >
-              Active
+              Paid
             </button>
           )}
 
-          {/* Inactive */}
-          {inactive !== undefined && (
+          {/* Pending */}
+          {pending !== undefined && (
             <button
-              onClick={() => setView('inactive')}
+              onClick={() => setView('pending')}
               className={`px-2.5 py-0.5 rounded-sm text-sm transition-colors ${
-                view === 'inactive'
-                  ? 'bg-[var(--warning)] text-[var(--warning-foreground)]'
-                  : 'bg-[#fff4d6] text-[#8a6d00]' /* light amber alt */
-              }`}
-            >
-              Inactive
-            </button>
-          )}
-
-          {/* Completed */}
-          {completed !== undefined && (
-            <button
-              onClick={() => setView('completed')}
-              className={`px-2.5 py-0.5 rounded-sm text-sm transition-colors ${
-                view === 'completed'
-                  ? 'bg-[var(--info)] text-[var(--info-foreground)]'
-                  : 'bg-[#d6eaff] text-[#0b3d91]' /* light blue alt */
-              }`}
-            >
-              Completed
-            </button>
-          )}
-
-          {/* Defaulted */}
-          {defaulted !== undefined && (
-            <button
-              onClick={() => setView('defaulted')}
-              className={`px-2.5 py-0.5 rounded-sm text-sm transition-colors ${
-                view === 'defaulted'
+                view === 'pending'
                   ? 'bg-[var(--destructive)] text-[var(--destructive-foreground)]'
                   : 'bg-[#fde0e0] text-[#7b1f1f]' /* soft red alt */
               }`}
             >
-              Defaulted
+              Pending
             </button>
           )}
         </div>

@@ -8,14 +8,13 @@ import { useAppDispatch, useAppSelector } from '@/slices/hooks';
 import AppIcon from '@/components/shared/Icon';
 import Skeleton from '@/components/shared/Skeleton';
 
-import { hasPermission } from '@/lib/utils/helper';
-import { Permissions } from '@/lib/utils/permissions';
-
 import AnalyticsCard from '../AnalyticsCard';
 
 const DashboardCards = () => {
   const dispatch = useAppDispatch();
   const { analytics, cardLoading } = useAppSelector((state) => state.Dashboard);
+
+  console.log('analytics: ', analytics);
 
   useEffect(() => {
     dispatch(dashboardThunk.fetchCardAnalytics());
@@ -43,45 +42,32 @@ const DashboardCards = () => {
             key: 'admins',
             title: 'Admins',
             icon: <AppIcon name="ShieldUser" />,
-            permission: Permissions.VIEW_CARD_ADMIN_ANALYTICS,
           },
           {
-            key: 'customers',
-            title: 'Customers',
-            icon: <AppIcon name="Users" />,
-            permission: Permissions.VIEW_CARD_CUSTOMER_ANALYTICS,
+            key: 'products',
+            title: 'Products',
+            icon: <AppIcon name="Box" />,
           },
           {
-            key: 'installments',
-            title: 'Installments',
-            icon: <AppIcon name="CalendarClock" />,
-            permission: Permissions.VIEW_CARD_INSTALLMENT_ANALYTICS,
+            key: 'transactions',
+            title: 'Transactions',
+            icon: <AppIcon name="CircleDollarSign" />,
           },
-          {
-            key: 'shopkeepers',
-            title: 'Registered Shopkeepers',
-            icon: <AppIcon name="Store" />,
-            permission: Permissions.VIEW_CARD_SHOPKEEPER_ANALYTICS,
-          },
-        ]
-          .filter(({ permission }) => hasPermission(permission))
-          .map(({ key, title, icon }) => {
-            const data = analytics[key as keyof typeof analytics];
-            if (!data) return null;
+        ].map(({ key, title, icon }) => {
+          const data = analytics[key as keyof typeof analytics];
+          if (!data) return null;
 
-            return (
-              <AnalyticsCard
-                key={key}
-                title={title}
-                total={data.total}
-                active={data.active}
-                inactive={data.inactive}
-                defaulted={data.defaulted}
-                completed={data.completed}
-                icon={icon}
-              />
-            );
-          })}
+          return (
+            <AnalyticsCard
+              key={key}
+              title={title}
+              total={data.total}
+              paid={data.paid}
+              pending={data.pending}
+              icon={icon}
+            />
+          );
+        })}
     </div>
   );
 };

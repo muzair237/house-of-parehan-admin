@@ -18,17 +18,14 @@ export type DashboardState = {
 
 export type StatGroup = {
   total: number;
-  active?: number;
-  inactive?: number;
-  defaulted?: number;
-  completed?: number;
+  paid?: number;
+  pending?: number;
 };
 
 export type AnalyticCardResponseType = {
   admins: StatGroup;
-  customers: StatGroup;
-  installments: StatGroup;
-  shopkeepers: StatGroup;
+  products: StatGroup;
+  transactions: StatGroup;
 };
 
 export type TopShopkeeperType = {
