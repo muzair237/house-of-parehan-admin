@@ -10,11 +10,9 @@ import Heading from '@/components/shared/Heading';
 import { Permissions } from '@/lib/utils/permissions';
 
 import DashboardCards from '../DashboardCards';
-import InstallmentsDueToday from '../InstallmentsDueToday';
 import RemindersDueToday from '../RemindersDueToday';
 import RevenuePieChart from '../RevenueSummary';
-import TopShopkeepersChart from '../TopProductsByUnitsSold';
-import TopRevenueChart from '../TopShopkeepersByRevenue';
+import TopProductsChart from '../TopProductsByUnitsSold';
 
 const SectionWrapper: React.FC<{ title: string; children: React.ReactNode }> = ({
   title,
@@ -48,28 +46,16 @@ const DashboardComponents = () => {
       <Grid cols={2}>
         {permissions.includes(Permissions.VIEW_TOP_PRODUCTS_BY_UNIT_SOLD) && (
           <SectionWrapper title="Top Products By Units Sold">
-            <TopShopkeepersChart />
+            <TopProductsChart />
           </SectionWrapper>
         )}
 
-        {permissions.includes(Permissions.VIEW_TOP_SHOPKEEPERS_BY_REVENUE) && (
-          <SectionWrapper title="Top Shopkeepers By Revenue">
-            <TopRevenueChart />
+        {permissions.includes(Permissions.VIEW_REMINDERS_DUE_TODAY) && (
+          <SectionWrapper title="Reminders Due Today">
+            <RemindersDueToday />
           </SectionWrapper>
         )}
       </Grid>
-
-      {permissions.includes(Permissions.VIEW_REMINDERS_DUE_TODAY) && (
-        <SectionWrapper title="Reminders Due Today">
-          <RemindersDueToday />
-        </SectionWrapper>
-      )}
-
-      {permissions.includes(Permissions.VIEW_INSTALLMENTS_DUE_TODAY) && (
-        <SectionWrapper title="Installments Due Today">
-          <InstallmentsDueToday />
-        </SectionWrapper>
-      )}
     </div>
   );
 };

@@ -2,7 +2,6 @@ import {
   AnalyticCardResponseType,
   DashboardState,
   RevenueBreakdown,
-  RevenueByShopkeeper,
   TopProductType,
 } from '@/domains/dashboard/types';
 import { RemindersWithCount } from '@/domains/reminder/types';
@@ -13,15 +12,12 @@ import dashboardThunk from './thunk';
 const initialState: DashboardState = {
   analytics: null,
   topProducts: [],
-  revenueByShopkeepers: [],
   revenueSummary: [],
   remindersDueToday: { items: [], totalItems: 0 },
   cardLoading: false,
   topProductsLoading: false,
-  revenueByShopkeepersLoading: false,
   revenueSummaryLoading: false,
   activeAlertsLoading: false,
-  installmentsDueTodayLoading: false,
   remindersDueTodayLoading: false,
   error: null,
 };
@@ -62,24 +58,7 @@ const dashboardSlice = createSlice({
       )
       .addCase(dashboardThunk.fetchTopProductsByUnitSold.rejected, (state, action) => {
         state.topProductsLoading = false;
-        state.error = action.error.message || 'Failed to fetch top shopkeepers';
-      });
-
-    builder
-      .addCase(dashboardThunk.fetchRevenueShopkeepers.pending, (state) => {
-        state.revenueByShopkeepersLoading = true;
-        state.error = null;
-      })
-      .addCase(
-        dashboardThunk.fetchRevenueShopkeepers.fulfilled,
-        (state, action: PayloadAction<RevenueByShopkeeper[]>) => {
-          state.revenueByShopkeepers = action.payload;
-          state.revenueByShopkeepersLoading = false;
-        }
-      )
-      .addCase(dashboardThunk.fetchRevenueShopkeepers.rejected, (state, action) => {
-        state.revenueByShopkeepersLoading = false;
-        state.error = action.error.message || 'Failed to fetch top shopkeepers';
+        state.error = action.error.message || 'Failed to fetch top products';
       });
 
     builder
@@ -96,7 +75,7 @@ const dashboardSlice = createSlice({
       )
       .addCase(dashboardThunk.fetchRevenueSummary.rejected, (state, action) => {
         state.revenueSummaryLoading = false;
-        state.error = action.error.message || 'Failed to fetch top shopkeepers';
+        state.error = action.error.message || 'Failed to fetch revenue summary';
       });
 
     builder
@@ -113,7 +92,7 @@ const dashboardSlice = createSlice({
       )
       .addCase(dashboardThunk.fetchReminersDueToday.rejected, (state, action) => {
         state.remindersDueTodayLoading = false;
-        state.error = action.error.message || 'Failed to fetch top shopkeepers';
+        state.error = action.error.message || 'Failed to fetch reminders due today';
       });
   },
 });

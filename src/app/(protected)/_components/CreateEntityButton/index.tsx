@@ -17,7 +17,6 @@ import { handleApiCall, hasPermission } from '@/lib/utils/helper';
 import { Permissions } from '@/lib/utils/permissions';
 
 import AdminForm from '../../admins/_components/adminForm';
-// import ReminderForm from '../../installments/_components/ReminderForm';
 import PermissionForm from '../../permissions/_components/PermissionForm';
 import ProductForm from '../../products/_components/ProductForm';
 import ReminderForm from '../../reminders/_components/ReminderForm';
@@ -29,14 +28,12 @@ type Props = {
   refetch: () => void;
 };
 
-// Define form props type
 type EntityFormProps = {
   isLoading: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => void;
 };
 
-// Map of entity names to components and metadata
 const entityMap: Record<
   string,
   {

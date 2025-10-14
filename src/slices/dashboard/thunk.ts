@@ -1,7 +1,6 @@
 import {
   AnalyticCardResponseType,
   RevenueBreakdown,
-  RevenueByShopkeeper,
   TopProductType,
 } from '@/domains/dashboard/types';
 import { RemindersWithCount } from '@/domains/reminder/types';
@@ -10,7 +9,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   GET_CARD_ANALYTICS,
   GET_REMINDERS_DUE_TODAY,
-  GET_REVENUE_BY_SHOPKEEPERS,
   GET_REVENUE_SUMMARY,
   GET_TOP_PRODUCTS_BY_UNIT_SOLD,
 } from '@/lib/utils/apiHelper';
@@ -34,16 +32,6 @@ const fetchTopProductsByUnitSold = createAsyncThunk('dashboard/fetchTopProducts'
     return res.data;
   });
 });
-
-const fetchRevenueShopkeepers = createAsyncThunk(
-  'dashboard/fetchRevenueByShopkeepers',
-  async () => {
-    return wrapAsync(async () => {
-      const res = await HttpClient.get<{ data: RevenueByShopkeeper[] }>(GET_REVENUE_BY_SHOPKEEPERS);
-      return res.data;
-    });
-  }
-);
 
 export const fetchRevenueSummary = createAsyncThunk(
   'dashboard/fetchRevenueSummary',
@@ -73,7 +61,6 @@ const fetchReminersDueToday = createAsyncThunk(
 const dashboardThunk = {
   fetchCardAnalytics,
   fetchTopProductsByUnitSold,
-  fetchRevenueShopkeepers,
   fetchRevenueSummary,
   fetchReminersDueToday,
 };

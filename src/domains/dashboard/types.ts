@@ -6,12 +6,9 @@ export type DashboardState = {
   revenueSummary: RevenueBreakdown[];
   remindersDueToday: RemindersWithCount;
   cardLoading: boolean;
-  revenueByShopkeepers: RevenueByShopkeeper[];
   topProductsLoading: boolean;
-  revenueByShopkeepersLoading: boolean;
   revenueSummaryLoading: boolean;
   activeAlertsLoading: boolean;
-  installmentsDueTodayLoading: boolean;
   remindersDueTodayLoading: boolean;
   error: string | null;
 };
@@ -32,12 +29,6 @@ export type TopProductType = {
   productId: string;
   productName: string;
   unitsSold: number;
-};
-
-export type RevenueByShopkeeper = {
-  shopkeeperId: string;
-  shopkeeperName: string;
-  totalRevenue: number;
 };
 
 export type RevenueBreakdown = {

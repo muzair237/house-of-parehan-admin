@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 
-// import ReminderForm from '@/app/(protected)/installments/_components/ReminderForm';
 import { ReminderData, ReminderPayload, ReminderStatus } from '@/domains/reminder/types';
 import { useAppDispatch } from '@/slices/hooks';
 import reminderThunk from '@/slices/reminder/thunk';

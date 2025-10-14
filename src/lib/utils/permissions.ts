@@ -29,12 +29,7 @@ export enum Permissions {
   VIEW_CARD_ANALYTICS = 'dashboard.view-card-analytics',
   VIEW_CARD_ADMIN_ANALYTICS = 'dashboard.view-card-admin-analytics',
   VIEW_CARD_CUSTOMER_ANALYTICS = 'dashboard.view-card-customer-analytics',
-  VIEW_CARD_INSTALLMENT_ANALYTICS = 'dashboard.view-card-installment-analytics',
-  VIEW_CARD_SHOPKEEPER_ANALYTICS = 'dashboard.view-card-shopkeeper-analytics',
-  VIEW_RECENTLY_JOINED_SHOPKEEPERS = 'dashboard.view-recently-joined-shopkeepers',
   VIEW_TOP_PRODUCTS_BY_UNIT_SOLD = 'dashboard.view-top-products-by-unit-sold',
-  VIEW_TOP_SHOPKEEPERS_BY_REVENUE = 'dashboard.view-revenue-by-shopkeepers',
   VIEW_REVENUE_SUMMARY = 'dashboard.view-revenue-summary',
-  VIEW_INSTALLMENTS_DUE_TODAY = 'dashboard.view-installments-due-today',
   VIEW_REMINDERS_DUE_TODAY = 'dashboard.view-reminders-due-today',
 }

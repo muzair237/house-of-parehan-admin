@@ -11,21 +11,13 @@ import { Field, Form } from '@/components/shared/Form';
 import { useForm } from '@/components/shared/Form/core/useForm';
 import Grid from '@/components/shared/Grid';
 
-import { removeDashes } from '@/lib/utils/helper';
-
 interface AdminFormProps {
   row?: Partial<AdminPayload> & { _id?: string };
   isLoading: boolean;
-  activatingShopkeeper?: boolean;
   onSubmit: (values: AdminPayload) => void | Promise<void>;
 }
 
-const AdminForm: React.FC<AdminFormProps> = ({
-  row,
-  isLoading,
-  activatingShopkeeper = false,
-  onSubmit,
-}) => {
+const AdminForm: React.FC<AdminFormProps> = ({ row, isLoading, onSubmit }) => {
   const dispatch = useAppDispatch();
   const { uniqueRoles } = useAppSelector((state) => state.Role);
 
@@ -38,15 +30,9 @@ const AdminForm: React.FC<AdminFormProps> = ({
       : undefined,
   });
 
-  console.log('errors: ', form.formState.errors);
-
   useEffect(() => {
     dispatch(roleThunk.fetchUniqueRoles());
   }, [dispatch]);
-
-  const roleOptions = activatingShopkeeper
-    ? uniqueRoles.filter((role) => role.label === 'SHOPKEEPER')
-    : uniqueRoles;
 
   return (
     <Form form={form} onSubmit={onSubmit}>
@@ -79,7 +65,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
           type="select"
           isMulti
           placeholder="Select Roles"
-          options={roleOptions}
+          options={uniqueRoles}
           maxVisibleTags={3}
           rules={[
             {
@@ -93,7 +79,7 @@ const AdminForm: React.FC<AdminFormProps> = ({
       </Grid>
 
       <Grid cols={2}>
-        {(!row || activatingShopkeeper) && (
+        {!row && (
           <Field
             name="password"
             label="Password"
@@ -104,7 +90,6 @@ const AdminForm: React.FC<AdminFormProps> = ({
         )}
       </Grid>
 
-      {/* Submit */}
       <div className="mt-4 flex justify-end">
         <Button type="submit" loading={isLoading}>
           {row?._id ? 'Update' : 'Create'}

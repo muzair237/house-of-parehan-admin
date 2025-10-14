@@ -9,7 +9,7 @@ import PageHeader from '../_components/PageHeader';
 
 const PAGE_TITLE = 'Transactions';
 const PAGE_DESCRIPTION =
-  'View and manage all customer installment payments and transaction records.';
+  'View and manage all customer payments and transaction records.';
 
 export const metadata = createSEO({
   title: PAGE_TITLE,
