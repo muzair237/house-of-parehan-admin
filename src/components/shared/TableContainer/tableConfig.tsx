@@ -248,6 +248,10 @@ export const tableConfigs: Record<string, TableConfig> = {
         sortable: true,
       },
       {
+        key: 'referenceNumber',
+        label: 'Reference Number',
+      },
+      {
         key: 'products',
         label: 'Products',
         render: (row) =>

@@ -89,7 +89,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ row, isLoading, onSub
       <div className="mt-6">
         <ModalContainer
           title="Select Products"
-          size="2xl"
+          size="4xl"
           submitButton={{
             loading: isLoading,
             disabled: !selectedProducts.length,

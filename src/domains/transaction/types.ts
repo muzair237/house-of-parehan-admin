@@ -18,6 +18,7 @@ export type TransactionData = BaseFields & {
   products: TransactionProduct[];
   totalAmount: number;
   status: TransactionStatus;
+  referenceNumber: string;
   paidAt: string;
   note?: string;
 };

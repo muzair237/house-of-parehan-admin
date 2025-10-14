@@ -54,6 +54,7 @@ const TransactionActionBtns: React.FC<TransactionActionBtnsProps> = ({ row, refe
   };
 
   const preparedData: Option[] = [
+    { label: 'Reference Number', value: row.referenceNumber },
     { label: 'Total Amount', value: formatCurrency(row.totalAmount) },
     { label: 'Paid At', value: row.paidAt ? parseDate(row.paidAt) : '-' },
     { label: 'Note', value: row.note ?? '-' },
