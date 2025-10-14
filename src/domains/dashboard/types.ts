@@ -2,12 +2,12 @@ import { RemindersWithCount } from '../reminder/types';
 
 export type DashboardState = {
   analytics: AnalyticCardResponseType | null;
-  topShopkeepers: TopShopkeeperType[];
+  topProducts: TopProductType[];
   revenueSummary: RevenueBreakdown[];
   remindersDueToday: RemindersWithCount;
   cardLoading: boolean;
   revenueByShopkeepers: RevenueByShopkeeper[];
-  topShopkeepersLoading: boolean;
+  topProductsLoading: boolean;
   revenueByShopkeepersLoading: boolean;
   revenueSummaryLoading: boolean;
   activeAlertsLoading: boolean;
@@ -28,10 +28,10 @@ export type AnalyticCardResponseType = {
   transactions: StatGroup;
 };
 
-export type TopShopkeeperType = {
-  shopkeeperId: string;
-  shopkeeperName: string;
-  activeInstallments: number;
+export type TopProductType = {
+  productId: string;
+  productName: string;
+  unitsSold: number;
 };
 
 export type RevenueByShopkeeper = {

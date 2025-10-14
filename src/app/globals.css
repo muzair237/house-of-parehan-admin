@@ -154,6 +154,13 @@
   --chart-3: #d1a954;
   --chart-4: #2d936c;
   --chart-5: #5a6168;
+
+  /* Chart Hover Variants */
+  --chart-1-hover: #256c6b;
+  --chart-2-hover: #32445e;
+  --chart-3-hover: #bf953e;
+  --chart-4-hover: #25855d;
+  --chart-5-hover: #4a555e;
 }
 
 .dark {
@@ -202,11 +209,19 @@
   --sidebar-border: #3a3f44;
   --sidebar-ring: #4db6ac;
 
+  /* Charts */
   --chart-1: #4db6ac;
   --chart-2: #5c6f82;
   --chart-3: #ffd479;
   --chart-4: #66cdaa;
   --chart-5: #b5bbc0;
+
+  /* Chart Hover Variants */
+  --chart-1-hover: #45a69d;
+  --chart-2-hover: #4f6275;
+  --chart-3-hover: #ffca55;
+  --chart-4-hover: #57b895;
+  --chart-5-hover: #a7adb2;
 }
 
 /* Base Styles */

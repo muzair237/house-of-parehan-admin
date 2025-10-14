@@ -2,7 +2,7 @@ import {
   AnalyticCardResponseType,
   RevenueBreakdown,
   RevenueByShopkeeper,
-  TopShopkeeperType,
+  TopProductType,
 } from '@/domains/dashboard/types';
 import { RemindersWithCount } from '@/domains/reminder/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -12,7 +12,7 @@ import {
   GET_REMINDERS_DUE_TODAY,
   GET_REVENUE_BY_SHOPKEEPERS,
   GET_REVENUE_SUMMARY,
-  GET_TOP_SHOPKEEPERS,
+  GET_TOP_PRODUCTS_BY_UNIT_SOLD,
 } from '@/lib/utils/apiHelper';
 import HttpClient from '@/lib/utils/axios/axiosWrapper';
 import { QueryParams } from '@/lib/utils/types';
@@ -28,9 +28,9 @@ const fetchCardAnalytics = createAsyncThunk('dashboard/fetchCardAnalytics', asyn
   });
 });
 
-const fetchTopShopkeepers = createAsyncThunk('dashboard/fetchTopShopkeepers', async () => {
+const fetchTopProductsByUnitSold = createAsyncThunk('dashboard/fetchTopProducts', async () => {
   return wrapAsync(async () => {
-    const res = await HttpClient.get<{ data: TopShopkeeperType[] }>(GET_TOP_SHOPKEEPERS);
+    const res = await HttpClient.get<{ data: TopProductType[] }>(GET_TOP_PRODUCTS_BY_UNIT_SOLD);
     return res.data;
   });
 });
@@ -72,7 +72,7 @@ const fetchReminersDueToday = createAsyncThunk(
 
 const dashboardThunk = {
   fetchCardAnalytics,
-  fetchTopShopkeepers,
+  fetchTopProductsByUnitSold,
   fetchRevenueShopkeepers,
   fetchRevenueSummary,
   fetchReminersDueToday,

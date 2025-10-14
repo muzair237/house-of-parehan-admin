@@ -45,9 +45,8 @@ const AdminActionBtns: React.FC<AdminActionBtnsProps> = ({ row, refetch }) => {
       } else {
         payload = {
           fullName: values.fullName,
-          mobile: values.mobile,
+          email: values.email,
           roles: values.roles,
-          accountExpiryDate: values.accountExpiryDate,
         };
       }
 
@@ -99,17 +98,11 @@ const AdminActionBtns: React.FC<AdminActionBtnsProps> = ({ row, refetch }) => {
 
   const preparedData: Option[] = [
     { label: 'Full Name', value: row.fullName },
-    { label: 'Email', value: row.mobile },
+    { label: 'Email', value: row.email },
     {
       label: 'Roles',
       value: row.roles.map((role) => (typeof role === 'string' ? role : role.type)),
     },
-
-    {
-      label: 'Account Expiry Date',
-      value: row.accountExpiryDate ? parseDate(row.accountExpiryDate) : '-',
-    },
-
     { label: 'Created At', value: parseDate(row.createdAt) },
   ];
 

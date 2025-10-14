@@ -246,7 +246,6 @@ export const tableConfigs: Record<string, TableConfig> = {
         key: 'createdAt',
         label: 'Date',
         sortable: true,
-        render: (row) => new Date(row.createdAt).toLocaleDateString(),
       },
       {
         key: 'products',

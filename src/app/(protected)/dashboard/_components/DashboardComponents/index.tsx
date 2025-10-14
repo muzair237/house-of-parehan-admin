@@ -13,7 +13,7 @@ import DashboardCards from '../DashboardCards';
 import InstallmentsDueToday from '../InstallmentsDueToday';
 import RemindersDueToday from '../RemindersDueToday';
 import RevenuePieChart from '../RevenueSummary';
-import TopShopkeepersChart from '../TopShopkeepersByInstallments';
+import TopShopkeepersChart from '../TopProductsByUnitsSold';
 import TopRevenueChart from '../TopShopkeepersByRevenue';
 
 const SectionWrapper: React.FC<{ title: string; children: React.ReactNode }> = ({
@@ -46,8 +46,8 @@ const DashboardComponents = () => {
       )}
 
       <Grid cols={2}>
-        {permissions.includes(Permissions.VIEW_TOP_SHOPKEEPERS) && (
-          <SectionWrapper title="Top Shopkeepers By Installments">
+        {permissions.includes(Permissions.VIEW_TOP_PRODUCTS_BY_UNIT_SOLD) && (
+          <SectionWrapper title="Top Products By Units Sold">
             <TopShopkeepersChart />
           </SectionWrapper>
         )}

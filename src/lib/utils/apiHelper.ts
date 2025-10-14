@@ -47,7 +47,7 @@ export const UPDATE_REMINDER = `/${REMINDER}/update-reminder`;
 export const DELETE_REMINDER = `/${REMINDER}/delete-reminder`;
 
 export const GET_CARD_ANALYTICS = `/${DASHBOARD}/get-card-analytics`;
-export const GET_TOP_SHOPKEEPERS = `/${DASHBOARD}/get-top-shopkeepers`;
+export const GET_TOP_PRODUCTS_BY_UNIT_SOLD = `/${DASHBOARD}/get-top-products-by-unit-sold`;
 export const GET_REVENUE_BY_SHOPKEEPERS = `/${DASHBOARD}/get-revenue-by-shopkeepers`;
 export const GET_REVENUE_SUMMARY = `/${DASHBOARD}/get-revenue-summary`;
 export const GET_ACTIVE_ALERTS = `/${DASHBOARD}/get-active-alerts`;

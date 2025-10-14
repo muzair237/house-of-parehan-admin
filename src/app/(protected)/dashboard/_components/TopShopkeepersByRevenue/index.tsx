@@ -79,7 +79,7 @@ const TopRevenueChart = () => {
         type: 'bar',
         data: revenueByShopkeepers.map((i) => i.totalRevenue),
         itemStyle: {
-          color: '#0984e3',
+          color: 'var(--chart-1)',
           borderRadius: [0, 6, 6, 0],
         },
         label: {

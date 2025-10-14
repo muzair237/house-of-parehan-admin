@@ -2,9 +2,8 @@ import { BaseFields } from '@/lib/utils/types';
 
 export type AdminData = {
   fullName: string;
-  mobile: string;
+  email: string;
   roles: { type: string }[] | string[];
-  accountExpiryDate?: Date;
 } & BaseFields;
 
 export type AdminPayload = AdminData;

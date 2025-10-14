@@ -3,7 +3,7 @@ import {
   DashboardState,
   RevenueBreakdown,
   RevenueByShopkeeper,
-  TopShopkeeperType,
+  TopProductType,
 } from '@/domains/dashboard/types';
 import { RemindersWithCount } from '@/domains/reminder/types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
@@ -12,12 +12,12 @@ import dashboardThunk from './thunk';
 
 const initialState: DashboardState = {
   analytics: null,
-  topShopkeepers: [],
+  topProducts: [],
   revenueByShopkeepers: [],
   revenueSummary: [],
   remindersDueToday: { items: [], totalItems: 0 },
   cardLoading: false,
-  topShopkeepersLoading: false,
+  topProductsLoading: false,
   revenueByShopkeepersLoading: false,
   revenueSummaryLoading: false,
   activeAlertsLoading: false,
@@ -49,19 +49,19 @@ const dashboardSlice = createSlice({
       });
 
     builder
-      .addCase(dashboardThunk.fetchTopShopkeepers.pending, (state) => {
-        state.topShopkeepersLoading = true;
+      .addCase(dashboardThunk.fetchTopProductsByUnitSold.pending, (state) => {
+        state.topProductsLoading = true;
         state.error = null;
       })
       .addCase(
-        dashboardThunk.fetchTopShopkeepers.fulfilled,
-        (state, action: PayloadAction<TopShopkeeperType[]>) => {
-          state.topShopkeepers = action.payload;
-          state.topShopkeepersLoading = false;
+        dashboardThunk.fetchTopProductsByUnitSold.fulfilled,
+        (state, action: PayloadAction<TopProductType[]>) => {
+          state.topProducts = action.payload;
+          state.topProductsLoading = false;
         }
       )
-      .addCase(dashboardThunk.fetchTopShopkeepers.rejected, (state, action) => {
-        state.topShopkeepersLoading = false;
+      .addCase(dashboardThunk.fetchTopProductsByUnitSold.rejected, (state, action) => {
+        state.topProductsLoading = false;
         state.error = action.error.message || 'Failed to fetch top shopkeepers';
       });
 
