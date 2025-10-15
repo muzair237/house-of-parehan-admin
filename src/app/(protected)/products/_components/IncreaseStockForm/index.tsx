@@ -19,11 +19,7 @@ interface StockFormProps {
 }
 
 const StockForm: React.FC<StockFormProps> = ({ currentStock, isLoading, onSubmit }) => {
-  const form = useForm<StockFormValues>({
-    defaultValues: {
-      quantity: 1,
-    },
-  });
+  const form = useForm<StockFormValues>({});
 
   return (
     <Form form={form} onSubmit={onSubmit}>

@@ -24,6 +24,8 @@ import {
 import { Permissions } from '@/lib/utils/permissions';
 import { Option } from '@/lib/utils/types';
 
+import TransactionInvoice from '../TransactionInvoice';
+
 interface TransactionActionBtnsProps {
   row: TransactionData;
   refetch?: () => void;
@@ -161,6 +163,20 @@ const TransactionActionBtns: React.FC<TransactionActionBtnsProps> = ({ row, refe
             )}
           </ModalContainer>
         )}
+
+      <ModalContainer
+        title="Transaction Invoice"
+        size="sm"
+        content={() => <TransactionInvoice transaction={row} />}
+      >
+        {(open) => (
+          <Tooltip label="View Invoice">
+            <Button onClick={open} minimal>
+              <AppIcon name="Printer" color='text-green-500' />
+            </Button>
+          </Tooltip>
+        )}
+      </ModalContainer>
     </div>
   );
 };

@@ -109,7 +109,7 @@ const RevenueLineChart = () => {
   if (revenueSummaryLoading) {
     return (
       <div className="w-full h-[400px] flex items-center justify-center border rounded-lg shadow-sm p-6">
-        <Skeleton rows={6} columns={1} cellWidth="w-full" cellHeight="h-6" />
+        <Skeleton rows={1} columns={1} cellWidth="w-370" cellHeight="h-70" />
       </div>
     );
   }
