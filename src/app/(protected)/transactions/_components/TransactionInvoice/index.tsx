@@ -21,30 +21,43 @@ const TransactionInvoice: React.FC<TransactionInvoiceModalProps> = ({ transactio
   const handleDownloadPDF = async () => {
     if (!invoiceRef.current) return;
 
-    console.log('Generating invoice PDF...');
-
     const element = invoiceRef.current;
 
-    await new Promise((r) => setTimeout(r, 100));
+    // --- STEP 1: Temporarily force light mode and clean layout ---
+    const htmlEl = document.documentElement;
+    const hadDarkClass = htmlEl.classList.contains('dark');
+    if (hadDarkClass) htmlEl.classList.remove('dark'); // disable dark theme
 
+    const originalClass = element.className;
+    element.className = 'w-full p-8 bg-white text-black'; // clean layout for PDF
+
+    await new Promise((r) => setTimeout(r, 100)); // wait for DOM repaint
+
+    // --- STEP 2: Capture ---
     const canvas = await html2canvas(element, {
-      scale: 5, // higher for better clarity
+      scale: 2,
       useCORS: true,
-      backgroundColor: '#ffffff', 
+      backgroundColor: '#ffffff',
       scrollX: 0,
       scrollY: 0,
       windowWidth: element.scrollWidth,
       windowHeight: element.scrollHeight,
     });
 
+    // --- STEP 3: Generate PDF ---
     const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF('p', 'mm', 'a4');
-
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const yOffset = pdfHeight < pageHeight ? (pageHeight - pdfHeight) / 2 : 0;
 
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight, undefined, 'FAST');
+    pdf.addImage(imgData, 'PNG', 0, yOffset, pdfWidth, pdfHeight, undefined, 'FAST');
     pdf.save(`${transaction.referenceNumber}.pdf`);
+
+    // --- STEP 4: Restore previous styles ---
+    element.className = originalClass;
+    if (hadDarkClass) htmlEl.classList.add('dark'); // restore dark mode
   };
 
   const totalBill =
@@ -74,29 +87,6 @@ const TransactionInvoice: React.FC<TransactionInvoiceModalProps> = ({ transactio
           <p className="text-sm text-[var(--muted-foreground)]">
             Ref: {transaction.referenceNumber}
           </p>
-
-          <div className="flex justify-center mt-6">
-            <span
-              className={`
-      inline-block px-5 py-2 font-extrabold text-lg uppercase tracking-widest
-      border-2 rounded-sm select-none
-      ${
-        transaction.status === TransactionStatus.PAID
-          ? 'text-[var(--success)] border-[var(--success)]'
-          : 'text-[var(--destructive)] border-[var(--destructive)]'
-      }
-    `}
-              style={{
-                transform: 'rotate(-8deg)',
-                display: 'inline-block',
-                letterSpacing: '2px',
-                boxShadow: '0 0 0 2px currentColor inset',
-                opacity: 0.9,
-              }}
-            >
-              {normalCase(TransactionStatus[transaction.status])}
-            </span>
-          </div>
         </div>
 
         {/* Transaction info */}
@@ -114,6 +104,10 @@ const TransactionInvoice: React.FC<TransactionInvoiceModalProps> = ({ transactio
           <div className="flex justify-between">
             <span className="text-[var(--muted-foreground)]">Total Items:</span>
             <span>{transaction.products?.length ?? 0}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[var(--muted-foreground)]">Status:</span>
+            <span>{normalCase(TransactionStatus[transaction.status])}</span>
           </div>
         </div>
 

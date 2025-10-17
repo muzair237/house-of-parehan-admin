@@ -15,7 +15,7 @@ interface AuthHeaderProps {
 const AuthHeader: React.FC<AuthHeaderProps> = ({ title, subtitle, className }) => {
   return (
     <div className={cn('text-center space-y-2', className)}>
-      <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-[var(--foreground)]">
+      <h1 className="text-3xl md:text-2xl font-semibold tracking-tight text-[var(--foreground)]">
         {title}
       </h1>
       {subtitle && (

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { LoginPayload } from '@/domains/auth/types';
+import { ForgotPasswordPayload } from '@/domains/auth/types';
 import authThunk from '@/slices/auth/thunk';
 import { useAppDispatch, useAppSelector } from '@/slices/hooks';
 
@@ -10,21 +10,24 @@ import Button from '@/components/shared/Button';
 import { Field, Form } from '@/components/shared/Form';
 import { useForm } from '@/components/shared/Form/core/useForm';
 import Link from '@/components/shared/Link';
+import ModalContainer from '@/components/shared/ModalContainer';
 
 import { useNavigate } from '@/hooks/useNavigate';
 
-export default function LoginForm() {
+// import ResetPasswordInformation from '../ResetPasswordInformation';
+
+export default function ForgotPasswordForm() {
   const dispatch = useAppDispatch();
   const { isLoggedIn } = useAppSelector((state) => state.Auth);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm<LoginPayload>();
+  const form = useForm<ForgotPasswordPayload>();
 
-  const onSubmit = async (values: LoginPayload) => {
+  const onSubmit = async (values: ForgotPasswordPayload) => {
     try {
       setIsLoading(true);
-      await dispatch(authThunk.login({ payload: values, navigate }));
+      //   await dispatch(authThunk.login({ payload: values, navigate }));
     } finally {
       setIsLoading(false);
     }
@@ -42,23 +45,13 @@ export default function LoginForm() {
         />
       </div>
 
-      <div className="space-y-3">
-        <Field
-          name="password"
-          label="Password"
-          placeholder="••••••••"
-          type="password"
-          rules={[{ required: true, message: 'Password is required' }]}
-        />
-      </div>
-
       <div>
-        <Link href="/forgot-password">Forgot password?</Link>
+        <Link href="/login">Remembered your password?</Link>
       </div>
 
       <div className="pt-2">
         <Button type="submit" loading={isLoading} disabled={isLoggedIn} fullWidth>
-          Login
+          Send OTP
         </Button>
       </div>
     </Form>

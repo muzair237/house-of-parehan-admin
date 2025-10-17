@@ -8,21 +8,21 @@ export function middleware(request: NextRequest) {
   )?.value;
 
   const allowedPages: string[] = allowedPagesCookie ? JSON.parse(allowedPagesCookie) : [];
-
   const pathname = request.nextUrl.pathname;
 
-  const isAuthPage = pathname.startsWith('/login');
+  const publicRoutes = ['/login', '/forgot-password', '/reset-password'];
 
-  if (token && isAuthPage) {
+  const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
+
+  if (token && isPublicRoute) {
     return NextResponse.redirect(new URL(allowedPages[0] || '/', request.url));
   }
 
-  const isProtectedPage = !isAuthPage;
-  if (!token && isProtectedPage) {
+  if (!token && !isPublicRoute) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  if (token && isProtectedPage && allowedPages.length > 0 && !allowedPages.includes(pathname)) {
+  if (token && !isPublicRoute && allowedPages.length > 0 && !allowedPages.includes(pathname)) {
     return NextResponse.redirect(new URL(allowedPages[0], request.url));
   }
 
