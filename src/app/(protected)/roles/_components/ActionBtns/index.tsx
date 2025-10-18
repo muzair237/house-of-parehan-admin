@@ -77,6 +77,8 @@ const RoleActionBtns: React.FC<RoleActionBtnsProps> = ({ row, refetch }) => {
     { label: 'Created At', value: parseDate(row.createdAt) },
   ];
 
+  const isDefaultRole = row.type === 'SUPER_ADMIN';
+
   return (
     <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
       <ModalContainer
@@ -107,7 +109,7 @@ const RoleActionBtns: React.FC<RoleActionBtnsProps> = ({ row, refetch }) => {
         >
           {(open) => (
             <Tooltip label="Update">
-              <Button onClick={open} minimal>
+              <Button onClick={open} disabled={isDefaultRole} minimal>
                 <AppIcon name="Pencil" />
               </Button>
             </Tooltip>
@@ -134,7 +136,7 @@ const RoleActionBtns: React.FC<RoleActionBtnsProps> = ({ row, refetch }) => {
         >
           {(open) => (
             <Tooltip label="Delete">
-              <Button onClick={open} minimal>
+              <Button onClick={open} disabled={isDefaultRole} minimal>
                 <AppIcon name="Trash" />
               </Button>
             </Tooltip>
