@@ -1,8 +1,9 @@
+import { Suspense } from 'react';
+
 import { createSEO } from '@/lib/utils/seo';
 
 import AuthHeader from '../_components/AuthHeader';
 import EnterOTPForm from './_components/EnterOtpForm';
-
 
 const PAGE_TITLE = 'Enter OTP';
 const PAGE_DESCRIPTION =
@@ -20,8 +21,11 @@ export default function EnterOTPPage() {
         title="Enter Verification Code"
         subtitle="We’ve sent a one-time password to your registered email. It is valid for 5 minutes."
       />
+
       <div className="mt-3">
-        <EnterOTPForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <EnterOTPForm />
+        </Suspense>
       </div>
     </div>
   );

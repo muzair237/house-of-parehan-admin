@@ -1,17 +1,44 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { PasswordFormValues } from '@/domains/admin/types';
+import authThunk from '@/slices/auth/thunk';
+import { useAppDispatch } from '@/slices/hooks';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import Button from '@/components/shared/Button';
 import { Field, Form } from '@/components/shared/Form';
 import { useForm } from '@/components/shared/Form/core/useForm';
 
-const ResetPasswordForm = () => {
-  const form = useForm<PasswordFormValues>();
+import { handleApiCall } from '@/lib/utils/helper';
 
-  const onSubmit = () => {};
+const ResetPasswordForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const form = useForm<PasswordFormValues>();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') ?? '';
+
+  const onSubmit = async (values: PasswordFormValues) => {
+    setIsLoading(true);
+    try {
+      const { success } = await handleApiCall(dispatch, authThunk.resetPassword, {
+        email,
+        newPassword: values.password,
+        navigate: router.push,
+      });
+
+      if (success) {
+        form.reset();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Form form={form} onSubmit={onSubmit}>
@@ -32,14 +59,14 @@ const ResetPasswordForm = () => {
           { required: true, message: 'Confirm password is required' },
           {
             validate: (value) => value === form.getValues('password'),
-            message: 'Password must match!',
+            message: 'Passwords must match!',
           },
         ]}
       />
 
       <div className="pt-2">
-        <Button type="submit" fullWidth>
-          Send OTP
+        <Button loading={isLoading} type="submit" fullWidth>
+          Reset Password
         </Button>
       </div>
     </Form>

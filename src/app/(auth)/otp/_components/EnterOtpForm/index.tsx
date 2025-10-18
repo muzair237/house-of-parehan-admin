@@ -2,33 +2,72 @@
 
 import React, { useState } from 'react';
 
+import authThunk from '@/slices/auth/thunk';
+import { useAppDispatch } from '@/slices/hooks';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import Button from '@/components/shared/Button';
 import Link from '@/components/shared/Link';
 import OTPInputField from '@/components/shared/OtpInputField';
+import Toast from '@/components/shared/Toast';
+
+import { handleApiCall } from '@/lib/utils/helper';
 
 export default function EnterOTPForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState('');
-  const [error, setError] = useState('');
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') ?? '';
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (otp.length < 6) {
-      setError('Please enter the full 6-digit code.');
-      return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    setIsLoading(true);
+    try {
+      const { success } = await handleApiCall(dispatch, authThunk.verifyOtp, { otp, email });
+      if (success) {
+        router.push(`/reset-password?email=${email}`);
+      }
+    } catch (error) {
+      console.error('Error sending OTP: ', error);
+    } finally {
+      setIsLoading(false);
     }
-    setError('');
-    console.log('Verifying OTP:', otp);
+  };
+
+  const resendOtp = async () => {
+    setIsLoading(true);
+    try {
+      const { success } = await handleApiCall(dispatch, authThunk.forgotPassword, email);
+
+      if (success) {
+        Toast({
+          type: 'success',
+          message: 'OTP sent successfully!',
+        });
+      }
+    } catch (error) {
+      console.error('Error sending OTP: ', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5 mt-4">
-      <OTPInputField length={6} value={otp} onChange={setOtp} error={error} />
+    <div className="flex flex-col gap-5 mt-4">
+      <OTPInputField length={6} value={otp} onChange={setOtp} error={otp.length < 6} />
       <div>
-        <Link href="/forgot-password">Didn’t receive the code? Resend</Link>
+        <Link onClick={resendOtp}>Didn’t receive the code? Resend</Link>
       </div>
-      <Button type="submit" fullWidth>
+      <Button
+        onClick={handleSubmit}
+        type="button"
+        disabled={otp.length < 6}
+        loading={isLoading}
+        fullWidth
+      >
         Verify Code
       </Button>
-    </form>
+    </div>
   );
 }

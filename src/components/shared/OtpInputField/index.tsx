@@ -3,7 +3,7 @@ import { InputOTPBase, InputOTPGroup, InputOTPSlot } from '@/components/ui/input
 import { cn } from '@/lib/utils';
 
 export interface OTPInputFieldProps {
-  error?: string;
+  error?: boolean;
   length?: number;
   value?: string;
   onChange?: (val: string) => void;

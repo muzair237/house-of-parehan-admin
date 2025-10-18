@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { createSEO } from '@/lib/utils/seo';
 
 import AuthHeader from '../_components/AuthHeader';
@@ -19,8 +21,11 @@ export default function ResetPasswordPage() {
         title="Reset Your Password"
         subtitle="Enter your new password below to reset your account access."
       />
+
       <div className="mt-3">
-        <ResetPasswordForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ResetPasswordForm />
+        </Suspense>
       </div>
     </div>
   );
