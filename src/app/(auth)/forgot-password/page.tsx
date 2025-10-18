@@ -17,7 +17,7 @@ export default function ForgotPasswordPage() {
     <div>
       <AuthHeader
         title="Forgot Your Password?"
-        subtitle="Enter your email address to receive an OTP for password reset"
+        subtitle="Enter your email address to receive an OTP for password reset."
       />
       <div className="mt-3">
         <ForgotPasswordForm />

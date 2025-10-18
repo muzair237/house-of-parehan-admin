@@ -15,7 +15,7 @@ export const metadata = createSEO({
 export default function LoginPage() {
   return (
     <div>
-      <AuthHeader title="Welcome Back!" subtitle="Please sign in to your account" />
+      <AuthHeader title="Welcome Back!" subtitle="Please sign in to your account." />
       <LoginForm />
     </div>
   );

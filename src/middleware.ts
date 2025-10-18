@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
   const allowedPages: string[] = allowedPagesCookie ? JSON.parse(allowedPagesCookie) : [];
   const pathname = request.nextUrl.pathname;
 
-  const publicRoutes = ['/login', '/forgot-password', '/reset-password'];
+  const publicRoutes = ['/login', '/forgot-password', '/otp', '/reset-password'];
 
   const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
 

@@ -17,7 +17,7 @@ export default function ResetPasswordPage() {
     <div>
       <AuthHeader
         title="Reset Your Password"
-        subtitle="Enter your new password below to reset your account access"
+        subtitle="Enter your new password below to reset your account access."
       />
       <div className="mt-3">
         <ResetPasswordForm />

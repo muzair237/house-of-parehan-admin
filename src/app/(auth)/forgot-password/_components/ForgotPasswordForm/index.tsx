@@ -10,11 +10,8 @@ import Button from '@/components/shared/Button';
 import { Field, Form } from '@/components/shared/Form';
 import { useForm } from '@/components/shared/Form/core/useForm';
 import Link from '@/components/shared/Link';
-import ModalContainer from '@/components/shared/ModalContainer';
 
 import { useNavigate } from '@/hooks/useNavigate';
-
-// import ResetPasswordInformation from '../ResetPasswordInformation';
 
 export default function ForgotPasswordForm() {
   const dispatch = useAppDispatch();
@@ -27,7 +24,8 @@ export default function ForgotPasswordForm() {
   const onSubmit = async (values: ForgotPasswordPayload) => {
     try {
       setIsLoading(true);
-      //   await dispatch(authThunk.login({ payload: values, navigate }));
+      await dispatch(authThunk.forgotPassword(values.email)).unwrap();
+      navigate(`/otp?email=${encodeURIComponent(values.email)}`, { replace: true });
     } finally {
       setIsLoading(false);
     }
