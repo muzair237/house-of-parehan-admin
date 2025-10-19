@@ -9,6 +9,7 @@ import productThunk from '@/slices/product/thunk';
 import AppBadge from '@/components/shared/Badge';
 import Button from '@/components/shared/Button';
 import AppIcon from '@/components/shared/Icon';
+import Link from '@/components/shared/Link';
 import ModalContainer from '@/components/shared/ModalContainer';
 import RecordInfo from '@/components/shared/Modals/RecordInfoModal';
 import Tooltip from '@/components/shared/Tooltip';
@@ -119,6 +120,14 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
         </AppBadge>
       ),
     },
+    {
+      label: 'View on Site',
+      value: (
+        <Link href={`${process.env.NEXT_PUBLIC_WEBSITE_ORIGIN}/product/${row._id}`} external>
+          <Button leftIcon={<AppIcon name="ExternalLink" size={17} />}>Visit</Button>
+        </Link>
+      ),
+    },
     { label: 'Images', value: row.images },
     { label: 'Description', value: row.description },
   ];
@@ -138,6 +147,14 @@ const ProductActionBtns: React.FC<ProductActionBtnsProps> = ({ row, refetch }) =
           </Tooltip>
         )}
       </ModalContainer>
+
+      {hasPermission(Permissions.INCREASE_STOCK) && (
+        <Tooltip label="View on Site">
+          <Link href={`${process.env.NEXT_PUBLIC_WEBSITE_ORIGIN}/product/${row._id}`} external>
+            <AppIcon name="ExternalLink" size={17} className="text-blue-500 mt-1" />
+          </Link>
+        </Tooltip>
+      )}
 
       {/* Update */}
       {hasPermission(Permissions.UPDATE_PRODUCT) && (
