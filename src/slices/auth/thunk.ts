@@ -21,7 +21,7 @@ const login = createAsyncThunk(
       const res = await HttpClient.post<
         typeof payload,
         { data: { token: string }; message: string }
-      >('/auth/login', payload);
+      >('/auth/admin/login', payload);
       const {
         data: { token },
         message,
@@ -36,7 +36,7 @@ const login = createAsyncThunk(
 
 const me = createAsyncThunk<AdminData>('auth/me', async () => {
   return wrapAsync(async () => {
-    const res = await HttpClient.get<{ data: AdminData; message?: string }>('/auth/me');
+    const res = await HttpClient.get<{ data: AdminData; message?: string }>('/auth/admin/me');
     return res.data;
   });
 });
@@ -45,7 +45,7 @@ const logout = createAsyncThunk(
   'logout/logoutAdmin',
   async ({ navigate }: { navigate: (path: string, options?: { replace?: boolean }) => void }) => {
     try {
-      await HttpClient.get('/auth/logout');
+      await HttpClient.get('/auth/admin/logout');
     } finally {
       clearMyBrowserData();
       navigate('/login', { replace: true });
@@ -57,7 +57,7 @@ const logout = createAsyncThunk(
 const forgotPassword = createAsyncThunk('auth/forgotPassword', async (email: string) => {
   return wrapAsync(async () => {
     const res = await HttpClient.post<{ email: string }, { message: string }>(
-      '/auth/forgot-password',
+      '/auth/admin/forgot-password',
       { email }
     );
     Toast({ type: 'success', message: res.message });
@@ -70,7 +70,7 @@ const verifyOtp = createAsyncThunk(
   async ({ email, otp }: { email: string; otp: string }) => {
     return wrapAsync(async () => {
       const res = await HttpClient.post<{ email: string; otp: string }, { message: string }>(
-        '/auth/verify-otp',
+        '/auth/admin/verify-otp',
         { email, otp }
       );
       Toast({ type: 'success', message: res.message });
@@ -94,7 +94,7 @@ const resetPassword = createAsyncThunk(
       const res = await HttpClient.post<
         { email: string; newPassword: string },
         { message: string }
-      >('/auth/reset-password', { email, newPassword });
+      >('/auth/admin/reset-password', { email, newPassword });
       Toast({ type: 'success', message: res.message });
       navigate('/login', { replace: true });
       return true;

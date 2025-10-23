@@ -4,20 +4,22 @@ import React, { useState } from 'react';
 
 import authThunk from '@/slices/auth/thunk';
 import { useAppDispatch } from '@/slices/hooks';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import Button from '@/components/shared/Button';
 import Link from '@/components/shared/Link';
 import OTPInputField from '@/components/shared/OtpInputField';
 import Toast from '@/components/shared/Toast';
 
+import { useNavigate } from '@/hooks/useNavigate';
+
 import { handleApiCall } from '@/lib/utils/helper';
 
 export default function EnterOTPForm() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState('');
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') ?? '';
 
@@ -26,7 +28,7 @@ export default function EnterOTPForm() {
     try {
       const { success } = await handleApiCall(dispatch, authThunk.verifyOtp, { otp, email });
       if (success) {
-        router.push(`/reset-password?email=${email}`);
+        navigate(`/reset-password?email=${email}`);
       }
     } catch (error) {
       console.error('Error sending OTP: ', error);
